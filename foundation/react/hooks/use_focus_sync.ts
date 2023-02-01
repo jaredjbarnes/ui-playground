@@ -9,11 +9,11 @@ export function useFocusSync<T extends HTMLElement>(
     const hasButton = element != null;
 
     if (hasButton) {
-      const isButtonElementActive = document.activeElement == element;
+      const isElementActive = document.activeElement == element;
 
-      if (isFocused && !isButtonElementActive) {
+      if (isFocused && !isElementActive) {
         element.focus();
-      } else if (!isFocused && isButtonElementActive) {
+      } else if (!isFocused && isElementActive) {
         element.blur();
       }
     }
