@@ -15,7 +15,6 @@ export interface BoxProps {
   enableResizeOnRight?: boolean;
   enableResizeOnBottom?: boolean;
   enableResizeOnLeft?: boolean;
-
   width?: React.CSSProperties["width"];
   height?: React.CSSProperties["height"];
   minWidth?: React.CSSProperties["minWidth"];
@@ -74,6 +73,90 @@ const leftResizeHandle: React.CSSProperties = {
   cursor: "ew-resize",
 };
 
+function createHorizontalResizeHandler(
+  boxRef: React.MutableRefObject<HTMLDivElement | null>,
+  invert = false
+) {
+  const direction = invert ? -1 : 1;
+  return function startHorizontalResize(event: React.MouseEvent) {
+    const box = boxRef.current;
+    if (box == null) {
+      return;
+    }
+
+    const startX = event.clientX;
+    const startRect = box.getBoundingClientRect();
+
+    const drag = (event: MouseEvent) => {
+      const deltaX = direction * (event.clientX - startX);
+
+      const newWidth = startRect.width + deltaX;
+      box.style.width = `${newWidth}px`;
+
+      event.stopPropagation();
+      event.preventDefault();
+    };
+
+    const endDrag = () => {
+      document.body.removeEventListener("mousemove", drag);
+      document.body.removeEventListener("mouseup", endDrag);
+      document.body.removeEventListener("mouseleave", endDrag);
+
+      event.stopPropagation();
+      event.preventDefault();
+    };
+
+    document.body.addEventListener("mousemove", drag);
+    document.body.addEventListener("mouseup", endDrag);
+    document.body.addEventListener("mouseleave", endDrag);
+
+    event.stopPropagation();
+    event.preventDefault();
+  };
+}
+
+function createVerticalResizeHandler(
+  boxRef: React.MutableRefObject<HTMLDivElement | null>,
+  invert = false
+) {
+  const direction = invert ? -1 : 1;
+  return function startVerticalResize(event: React.MouseEvent) {
+    const box = boxRef.current;
+    if (box == null) {
+      return;
+    }
+
+    const startY = event.clientY;
+    const startRect = box.getBoundingClientRect();
+
+    const drag = (event: MouseEvent) => {
+      const deltaY = direction * (event.clientY - startY);
+
+      const newHeight = startRect.height + deltaY;
+      box.style.height = `${newHeight}px`;
+
+      event.stopPropagation();
+      event.preventDefault();
+    };
+
+    const endDrag = () => {
+      document.body.removeEventListener("mousemove", drag);
+      document.body.removeEventListener("mouseup", endDrag);
+      document.body.removeEventListener("mouseleave", endDrag);
+
+      event.stopPropagation();
+      event.preventDefault();
+    };
+
+    document.body.addEventListener("mousemove", drag);
+    document.body.addEventListener("mouseup", endDrag);
+    document.body.addEventListener("mouseleave", endDrag);
+
+    event.stopPropagation();
+    event.preventDefault();
+  };
+}
+
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
   {
     width = "auto",
@@ -102,84 +185,38 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
   const finalHeight = fullHeight ? "100%" : height;
   const overflow = scroll ? "auto" : "hidden";
   const forkedRef = useForkRef(ref, boxRef);
+  let handles = <></>;
 
   if (isFlexing) {
     enableResizeOnTop = false;
     enableResizeOnRight = false;
     enableResizeOnBottom = false;
     enableResizeOnLeft = false;
-  }
+  } else {
+    const leftResizeHandler = createHorizontalResizeHandler(boxRef, true);
+    const rightResizeHandler = createHorizontalResizeHandler(boxRef, false);
+    const topResizeHandler = createVerticalResizeHandler(boxRef, true);
+    const bottomResizeHandler = createVerticalResizeHandler(boxRef, false);
 
-  function startVerticalResize(event: React.MouseEvent) {
-    const box = boxRef.current;
-    if (box == null) {
-      return;
-    }
-
-    const startY = event.clientY;
-    const startRect = box.getBoundingClientRect();
-
-    const drag = (event: MouseEvent) => {
-      const deltaY = event.clientY - startY;
-
-      const newHeight = startRect.height + deltaY;
-      box.style.height = `${newHeight}px`;
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    const endDrag = () => {
-      document.body.removeEventListener("mousemove", drag);
-      document.body.removeEventListener("mouseup", endDrag);
-      document.body.removeEventListener("mouseleave", endDrag);
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    document.body.addEventListener("mousemove", drag);
-    document.body.addEventListener("mouseup", endDrag);
-    document.body.addEventListener("mouseleave", endDrag);
-
-    event.stopPropagation();
-    event.preventDefault();
-  }
-
-  function startHorizontalResize(event: React.MouseEvent) {
-    const box = boxRef.current;
-    if (box == null) {
-      return;
-    }
-
-    const startX = event.clientX;
-    const startRect = box.getBoundingClientRect();
-
-    const drag = (event: MouseEvent) => {
-      const deltaX = event.clientX - startX;
-
-      const newWidth = startRect.width + deltaX;
-      box.style.width = `${newWidth}px`;
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    const endDrag = () => {
-      document.body.removeEventListener("mousemove", drag);
-      document.body.removeEventListener("mouseup", endDrag);
-      document.body.removeEventListener("mouseleave", endDrag);
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    document.body.addEventListener("mousemove", drag);
-    document.body.addEventListener("mouseup", endDrag);
-    document.body.addEventListener("mouseleave", endDrag);
-
-    event.stopPropagation();
-    event.preventDefault();
+    handles = (
+      <>
+        {enableResizeOnTop && (
+          <div onMouseDown={topResizeHandler} style={topResizeHandle}></div>
+        )}
+        {enableResizeOnRight && (
+          <div onMouseDown={rightResizeHandler} style={rightResizeHandle}></div>
+        )}
+        {enableResizeOnBottom && (
+          <div
+            onMouseDown={bottomResizeHandler}
+            style={bottomResizeHandle}
+          ></div>
+        )}
+        {enableResizeOnLeft && (
+          <div onMouseDown={leftResizeHandler} style={leftResizeHandle}></div>
+        )}
+      </>
+    );
   }
 
   return (
@@ -199,21 +236,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
       className={className}
     >
       {children}
-      {enableResizeOnTop && (
-        <div onMouseDown={startVerticalResize} style={topResizeHandle}></div>
-      )}
-      {enableResizeOnRight && (
-        <div
-          onMouseDown={startHorizontalResize}
-          style={rightResizeHandle}
-        ></div>
-      )}
-      {enableResizeOnBottom && (
-        <div onMouseDown={startVerticalResize} style={bottomResizeHandle}></div>
-      )}
-      {enableResizeOnLeft && (
-        <div onMouseDown={startHorizontalResize} style={leftResizeHandle}></div>
-      )}
+      {handles}
     </div>
   );
 });

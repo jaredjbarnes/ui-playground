@@ -66,9 +66,10 @@ export const HeaderBodyFooter = () => (
   <VStack verticalAlignment="center">
     <Box
       fullWidth
+      enableResizeOnTop
       enableResizeOnBottom
       backgroundColor="red"
-      height="40px"
+      height="20%"
       minHeight="40px"
     >
       <HStack fullHeight>
