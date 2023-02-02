@@ -64,7 +64,13 @@ export const Primary = () => (
 
 export const HeaderBodyFooter = () => (
   <VStack verticalAlignment="center">
-    <Box fullWidth backgroundColor="red" height="40px">
+    <Box
+      fullWidth
+      enableResizeOnBottom
+      backgroundColor="red"
+      height="40px"
+      minHeight="40px"
+    >
       <HStack fullHeight>
         <Spacer width="8px" />
         <Box>Title</Box>
