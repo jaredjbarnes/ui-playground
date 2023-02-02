@@ -75,6 +75,7 @@ export const Asides = () => (
       backgroundColor="red"
       width="100px"
       minWidth="100px"
+      maxWidth="calc(50% - 50px)"
       fullHeight
       enableResizeOnRight
     />
@@ -83,6 +84,7 @@ export const Asides = () => (
       backgroundColor="orange"
       width="100px"
       minWidth="100px"
+      maxWidth="calc(50% - 50px)"
       fullHeight
       enableResizeOnLeft
     />

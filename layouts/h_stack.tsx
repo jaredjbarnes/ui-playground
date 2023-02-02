@@ -48,6 +48,8 @@ export const HStack = React.forwardRef<HTMLDivElement, HStackProps>(
       gap: spacing,
       height: finalHeight,
       width: "100%",
+      opacity: "1",
+      zIndex: "1",
       flexDirection: "row",
       justifyContent: justifyContentMap[horizontalAlignment],
       alignItems: alignItemsMap[verticalAlignment],

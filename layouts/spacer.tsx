@@ -37,6 +37,8 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
           width: finalWidth,
           height: finalHeight,
           overflow: "hidden",
+          pointerEvents: "none",
+          zIndex: "1",
           flex,
         }}
         className={className}

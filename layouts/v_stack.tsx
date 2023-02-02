@@ -41,6 +41,8 @@ export const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
       gap: spacing,
       width: finalWidth,
       height: "100%",
+      opacity: "1",
+      zIndex: "1",
       flexDirection: "column",
       justifyContent: alignmentMap[verticalAlignment],
       alignItems: alignmentMap[horizontalAlignment],

@@ -73,6 +73,14 @@ const leftResizeHandle: React.CSSProperties = {
   cursor: "ew-resize",
 };
 
+const content: React.CSSProperties = {
+  position: "absolute",
+  top: "0",
+  bottom: "0",
+  width: "100%",
+  height: "100%",
+};
+
 function createHorizontalResizeHandler(
   boxRef: React.MutableRefObject<HTMLDivElement | null>,
   invert = false
@@ -228,14 +236,15 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
         width: finalWidth,
         height: finalHeight,
         boxSizing: "border-box",
-        overflow,
         flex,
+        zIndex: "1",
+        transform: "translate3d(0,0,0)",
         boxShadow: shadow,
         ...otherStyles,
       }}
       className={className}
     >
-      {children}
+      <div style={{ ...content, overflow }}>{children}</div>
       {handles}
     </div>
   );
