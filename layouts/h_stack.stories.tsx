@@ -68,3 +68,23 @@ export const Primary = () => (
     />
   </HStack>
 );
+
+export const Asides = () => (
+  <HStack fullHeight horizontalAlignment="center">
+    <Box
+      backgroundColor="red"
+      width="100px"
+      minWidth="100px"
+      fullHeight
+      enableResizeOnRight
+    />
+    <Box fillSpace minWidth="100px"></Box>
+    <Box
+      backgroundColor="orange"
+      width="100px"
+      minWidth="100px"
+      fullHeight
+      enableResizeOnLeft
+    />
+  </HStack>
+);
