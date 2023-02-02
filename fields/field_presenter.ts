@@ -20,7 +20,7 @@ export interface FieldPresenterOptions<T> {
 export class FieldPresenter<T> {
   protected _label: ObservableValue<string>;
   protected _value: ObservableValue<T, Error>;
-  protected _isLoading: ObservableValue<boolean>;
+  protected _isValueLoading: DistinctValue<boolean>;
   protected _isFocused: DistinctValue<boolean>;
   protected _isEqual: (prev: T, next: T) => boolean;
   protected _validate: (value: T) => Promise<void> | void;
@@ -29,10 +29,6 @@ export class FieldPresenter<T> {
   protected _shouldValidateOnLoad: boolean;
   protected _onChange: (value: T) => void;
   protected _onBlur: (value: T) => void;
-
-  get isLoadingBroadcast(): ReadonlyObservableValue<boolean> {
-    return this._isLoading;
-  }
 
   get valueBroadcast(): ReadonlyObservableValue<T> {
     return this._value;
@@ -46,9 +42,15 @@ export class FieldPresenter<T> {
     return this._isFocused;
   }
 
+  get isLoadingBroadcast(): ReadonlyObservableValue<boolean> {
+    return this._isValueLoading;
+  }
+
   constructor(label: string, value: T, options: FieldPresenterOptions<T>) {
     this._label = new ObservableValue(label);
     this._value = new ObservableValue(value);
+    this._isFocused = new DistinctValue(false);
+    this._isValueLoading = new DistinctValue(false);
 
     this._shouldValidateOnChange =
       typeof options.shouldValidateOnBlur === "boolean"
@@ -98,9 +100,10 @@ export class FieldPresenter<T> {
     }
   }
 
-  private _processValidation() {
+  private async _processValidation() {
     try {
       this._validate(this._value.getValue());
+      this.clearError();
     } catch (e) {
       this.setError(e);
     }
@@ -127,7 +130,7 @@ export class FieldPresenter<T> {
     }
   }
 
-  setIsLoading(value: boolean) {
-    this._isLoading.setValue(value);
+  setIsValueLoading(value: boolean) {
+    this._isValueLoading.setValue(value);
   }
 }
