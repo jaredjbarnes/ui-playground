@@ -90,3 +90,13 @@ export const Asides = () => (
     />
   </HStack>
 );
+
+export const Simple = () => {
+  return (
+    <HStack horizontalAlignment="start">
+      <div>Brent</div>
+      <div>Jared</div>
+      <Box fillSpace fullHeight></Box>
+    </HStack>
+  );
+};

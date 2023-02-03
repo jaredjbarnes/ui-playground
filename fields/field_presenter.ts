@@ -1,15 +1,11 @@
-import {
-  ObservableValue,
-  ReadonlyObservableValue,
-  DistinctValue,
-} from "ergo-hex";
+import { ObservableValue, DistinctValue } from "ergo-hex";
 
 const DEFAULT_IS_EQUAL = () => false;
 const NO_OPERATION = () => {};
 
 export interface FieldPresenterOptions<T> {
-  onChange: (value: T) => void;
-  onBlur: (value: T) => void;
+  onChange?: (value: T) => void;
+  onBlur?: (value: T) => void;
   isEqual?: (prev: T, next: T) => boolean;
   validate?: (value: T) => Promise<void> | void;
   shouldValidateOnChange?: boolean;
@@ -30,23 +26,23 @@ export class FieldPresenter<T> {
   protected _onChange: (value: T) => void;
   protected _onBlur: (value: T) => void;
 
-  get valueBroadcast(): ReadonlyObservableValue<T> {
-    return this._value;
+  get valueBroadcast() {
+    return this._value.broadcast;
   }
 
-  get labelBroadcast(): ReadonlyObservableValue<string> {
-    return this._label;
+  get labelBroadcast() {
+    return this._label.broadcast;
   }
 
-  get isFocusedBroadcast(): ReadonlyObservableValue<boolean> {
-    return this._isFocused;
+  get isFocusedBroadcast() {
+    return this._isFocused.broadcast;
   }
 
-  get isLoadingBroadcast(): ReadonlyObservableValue<boolean> {
-    return this._isValueLoading;
+  get isLoadingBroadcast() {
+    return this._isValueLoading.broadcast;
   }
 
-  constructor(label: string, value: T, options: FieldPresenterOptions<T>) {
+  constructor(label: string, value: T, options: FieldPresenterOptions<T> = {}) {
     this._label = new ObservableValue(label);
     this._value = new ObservableValue(value);
     this._isFocused = new DistinctValue(false);

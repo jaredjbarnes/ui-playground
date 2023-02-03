@@ -14,7 +14,6 @@ export interface VStackProps {
   spacing?: React.CSSProperties["gap"];
   padding?: React.CSSProperties["padding"];
   width?: React.CSSProperties["width"];
-  fullWidth?: boolean;
   children?: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -26,20 +25,17 @@ export const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
     verticalAlignment = "center",
     spacing = 0,
     padding = 0,
-    width = "auto",
-    fullWidth = false,
+    width = "100%",
     children,
     style,
     className,
   }: VStackProps) {
-    const finalWidth = fullWidth ? "100%" : width;
-
     const propertyDrivenStyles: React.CSSProperties = {
       display: "flex",
       position: "relative",
       padding: padding,
       gap: spacing,
-      width: finalWidth,
+      width,
       height: "100%",
       opacity: "1",
       zIndex: "1",

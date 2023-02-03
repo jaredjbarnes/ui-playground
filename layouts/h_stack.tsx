@@ -33,20 +33,17 @@ export const HStack = React.forwardRef<HTMLDivElement, HStackProps>(
     verticalAlignment = "center",
     spacing = 0,
     padding = 0,
-    height = "auto",
-    fullHeight = false,
+    height = "100%",
     children,
     style,
     className,
   }: HStackProps) {
-    const finalHeight = fullHeight ? "100%" : height;
-
     const propertyDrivenStyles: React.CSSProperties = {
       display: "flex",
       position: "relative",
       padding: padding,
       gap: spacing,
-      height: finalHeight,
+      height,
       width: "100%",
       opacity: "1",
       zIndex: "1",
