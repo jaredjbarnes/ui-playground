@@ -70,7 +70,7 @@ export const Primary = () => (
 );
 
 export const Asides = () => (
-  <HStack fullHeight horizontalAlignment="center">
+  <HStack fullHeight horizontalAlignment="center" padding="10px">
     <Box
       backgroundColor="red"
       width="100px"

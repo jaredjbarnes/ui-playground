@@ -1,5 +1,9 @@
 import React, { useRef } from "react";
 import { useForkRef } from "../foundation/react/hooks/use_fork_ref";
+import { BottomResizeHandle } from "./bottom_resize_handle";
+import { LeftResizeHandle } from "./left_resize_handle";
+import { RightResizeHandle } from "./right_resize_handle";
+import { TopResizeHandle } from "./top_resize_handle";
 
 export interface BoxProps {
   fullHeight?: boolean;
@@ -37,42 +41,6 @@ export interface BoxProps {
   transform?: React.CSSProperties["transform"];
 }
 
-const topResizeHandle: React.CSSProperties = {
-  position: "absolute",
-  top: "-5px",
-  left: "0px",
-  height: "10px",
-  width: "100%",
-  cursor: "ns-resize",
-};
-
-const rightResizeHandle: React.CSSProperties = {
-  position: "absolute",
-  top: "0px",
-  right: "-5px",
-  height: "100%",
-  width: "10px",
-  cursor: "ew-resize",
-};
-
-const bottomResizeHandle: React.CSSProperties = {
-  position: "absolute",
-  bottom: "-5px",
-  left: "0px",
-  height: "10px",
-  width: "100%",
-  cursor: "ns-resize",
-};
-
-const leftResizeHandle: React.CSSProperties = {
-  position: "absolute",
-  top: "0px",
-  left: "-5px",
-  height: "100%",
-  width: "10px",
-  cursor: "ew-resize",
-};
-
 const content: React.CSSProperties = {
   position: "absolute",
   top: "0",
@@ -80,90 +48,6 @@ const content: React.CSSProperties = {
   width: "100%",
   height: "100%",
 };
-
-function createHorizontalResizeHandler(
-  boxRef: React.MutableRefObject<HTMLDivElement | null>,
-  invert = false
-) {
-  const direction = invert ? -1 : 1;
-  return function startHorizontalResize(event: React.MouseEvent) {
-    const box = boxRef.current;
-    if (box == null) {
-      return;
-    }
-
-    const startX = event.clientX;
-    const startRect = box.getBoundingClientRect();
-
-    const drag = (event: MouseEvent) => {
-      const deltaX = direction * (event.clientX - startX);
-
-      const newWidth = startRect.width + deltaX;
-      box.style.width = `${newWidth}px`;
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    const endDrag = () => {
-      document.body.removeEventListener("mousemove", drag);
-      document.body.removeEventListener("mouseup", endDrag);
-      document.body.removeEventListener("mouseleave", endDrag);
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    document.body.addEventListener("mousemove", drag);
-    document.body.addEventListener("mouseup", endDrag);
-    document.body.addEventListener("mouseleave", endDrag);
-
-    event.stopPropagation();
-    event.preventDefault();
-  };
-}
-
-function createVerticalResizeHandler(
-  boxRef: React.MutableRefObject<HTMLDivElement | null>,
-  invert = false
-) {
-  const direction = invert ? -1 : 1;
-  return function startVerticalResize(event: React.MouseEvent) {
-    const box = boxRef.current;
-    if (box == null) {
-      return;
-    }
-
-    const startY = event.clientY;
-    const startRect = box.getBoundingClientRect();
-
-    const drag = (event: MouseEvent) => {
-      const deltaY = direction * (event.clientY - startY);
-
-      const newHeight = startRect.height + deltaY;
-      box.style.height = `${newHeight}px`;
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    const endDrag = () => {
-      document.body.removeEventListener("mousemove", drag);
-      document.body.removeEventListener("mouseup", endDrag);
-      document.body.removeEventListener("mouseleave", endDrag);
-
-      event.stopPropagation();
-      event.preventDefault();
-    };
-
-    document.body.addEventListener("mousemove", drag);
-    document.body.addEventListener("mouseup", endDrag);
-    document.body.addEventListener("mouseleave", endDrag);
-
-    event.stopPropagation();
-    event.preventDefault();
-  };
-}
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
   {
@@ -193,7 +77,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
   const finalHeight = fullHeight ? "100%" : height;
   const overflow = scroll ? "auto" : "hidden";
   const forkedRef = useForkRef(ref, boxRef);
-  let handles = <></>;
+  let handles: React.ReactElement[] = [];
 
   if (isFlexing) {
     enableResizeOnTop = false;
@@ -201,30 +85,21 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
     enableResizeOnBottom = false;
     enableResizeOnLeft = false;
   } else {
-    const leftResizeHandler = createHorizontalResizeHandler(boxRef, true);
-    const rightResizeHandler = createHorizontalResizeHandler(boxRef, false);
-    const topResizeHandler = createVerticalResizeHandler(boxRef, true);
-    const bottomResizeHandler = createVerticalResizeHandler(boxRef, false);
+    if (enableResizeOnTop) {
+      handles.push(<TopResizeHandle targetRef={boxRef} />);
+    }
 
-    handles = (
-      <>
-        {enableResizeOnTop && (
-          <div onMouseDown={topResizeHandler} style={topResizeHandle}></div>
-        )}
-        {enableResizeOnRight && (
-          <div onMouseDown={rightResizeHandler} style={rightResizeHandle}></div>
-        )}
-        {enableResizeOnBottom && (
-          <div
-            onMouseDown={bottomResizeHandler}
-            style={bottomResizeHandle}
-          ></div>
-        )}
-        {enableResizeOnLeft && (
-          <div onMouseDown={leftResizeHandler} style={leftResizeHandle}></div>
-        )}
-      </>
-    );
+    if (enableResizeOnBottom) {
+      handles.push(<BottomResizeHandle targetRef={boxRef} />);
+    }
+
+    if (enableResizeOnLeft) {
+      handles.push(<LeftResizeHandle targetRef={boxRef} />);
+    }
+
+    if (enableResizeOnRight) {
+      handles.push(<RightResizeHandle targetRef={boxRef} />);
+    }
   }
 
   return (

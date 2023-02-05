@@ -108,21 +108,15 @@ export const HeaderBodyFooter = () => (
 export const Example = () => {
   return (
     <VStack>
-      <Box
-        height="30px"
-        background={"grey"}
-        fullWidth
-        enableResizeOnBottom
-      ></Box>
-      <Box fillSpace fullWidth background={"grey"}>
-        <HStack>
-          <Spacer width="5px" />
+      <Box height={"30px"} fullWidth background={"grey"}></Box>
+      <Box background={"grey"} fillSpace fullWidth>
+        <HStack spacing="5px">
           <Box
-            width="200px"
-            fullHeight
-            scroll
+            background={"white"}
             enableResizeOnRight
-            backgroundColor={"white"}
+            fullHeight
+            width="30%"
+            scroll
           >
             webpack built preview 26b37f8164acc71e3394 in 2953ms webpack
             building... webpack built preview 26b37f8164acc71e3394 in 1832ms
@@ -136,26 +130,36 @@ export const Example = () => {
             webpack building... webpack built preview efc9c45d8daf58c4ca0c in
             2262ms webpack building... webpack built preview
             0cd9b55ffc1d35c316ce in 1818ms webpack building... webpack built
-            preview 4249f20bf181a7af0810 in 2962ms
+            preview 4249f20bf181a7af0810 in 2962ms webpack built preview
+            26b37f8164acc71e3394 in 2953ms webpack building... webpack built
+            preview 26b37f8164acc71e3394 in 1832ms webpack building... webpack
+            built preview ad5a29a07c2825109191 in 2591ms webpack building...
+            webpack built preview ae92cb6cdfffd5abe5ee in 3086ms webpack
+            building... webpack built preview ae92cb6cdfffd5abe5ee in 2599ms
+            webpack building... webpack built preview ae92cb6cdfffd5abe5ee in
+            2831ms webpack building... webpack built preview
+            abf20281884a138c81e1 in 2872ms webpack building... webpack built
+            preview ac349cd740c73e8f45ed in 2723ms webpack building... webpack
+            built preview efc9c45d8daf58c4ca0c in 2262ms webpack building...
+            webpack built preview 0cd9b55ffc1d35c316ce in 1818ms webpack
+            building... webpack built preview 4249f20bf181a7af0810 in 2962ms
           </Box>
-          <Spacer width="5px" />
-          <Box fillSpace fullHeight backgroundColor={"white"} />
-          <Spacer width="5px" />
+          <Box background={"white"} fullHeight fillSpace></Box>
         </HStack>
       </Box>
-      <Box height={"40px"} background={"grey"} fullWidth>
-        <HStack horizontalAlignment="start">
-          <Spacer width="5px" />
-          <span>Title</span>
-          <Spacer width="5px" />
-          <input />
-          <Spacer width="5px" />
-          <button disabled>Find</button>
-          <Spacer />
-          <button>Close Find</button>
-          <Spacer width="5px" />
-        </HStack>
-      </Box>
+      <Box height={"30px"} background={"grey"} fullWidth></Box>
     </VStack>
+  );
+};
+
+export const BoxExample = () => {
+  return (
+    <Box
+      background="red"
+      width="100px"
+      height="100px"
+      enableResizeOnBottom
+      enableResizeOnRight
+    />
   );
 };
