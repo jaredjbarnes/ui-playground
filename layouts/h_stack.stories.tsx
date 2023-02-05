@@ -14,7 +14,7 @@ const rect = {
 };
 
 export const Primary = () => (
-  <HStack fullHeight horizontalAlignment="center">
+  <HStack fullHeight horizontalAlignment="start">
     <Box
       border="3px solid black"
       backgroundColor="red"
@@ -22,6 +22,8 @@ export const Primary = () => (
       width="100px"
       minWidth="100px"
       height="100px"
+      enableResizeOnRight
+      enableResizeOnBottom
     />
     <Spacer width="10px" />
     <Box
@@ -70,7 +72,7 @@ export const Primary = () => (
 );
 
 export const Asides = () => (
-  <HStack fullHeight horizontalAlignment="center" padding="10px">
+  <HStack fullHeight horizontalAlignment="center">
     <Box
       backgroundColor="red"
       width="100px"
@@ -79,7 +81,9 @@ export const Asides = () => (
       fullHeight
       enableResizeOnRight
     />
+    <Spacer width="10px" />
     <Box fillSpace minWidth="100px"></Box>
+    <Spacer width="10px" />
     <Box
       backgroundColor="orange"
       width="100px"

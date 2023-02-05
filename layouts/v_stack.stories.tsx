@@ -110,7 +110,7 @@ export const Example = () => {
     <VStack>
       <Box height={"30px"} fullWidth background={"grey"}></Box>
       <Box background={"grey"} fillSpace fullWidth>
-        <HStack spacing="5px">
+        <HStack>
           <Box
             background={"white"}
             enableResizeOnRight
