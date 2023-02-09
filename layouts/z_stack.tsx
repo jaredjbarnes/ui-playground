@@ -1,14 +1,11 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
 export type Alignment = "start" | "center" | "end";
 
-export interface ZStackProps {
+export interface ZStackProps extends HTMLAttributes<HTMLElement> {
   horizontalAlignment?: Alignment;
   verticalAlignment?: Alignment;
-  as?:
-    | string
-    | React.ElementType
-    | React.ComponentType<{ children: React.ReactNode }>;
+  as?: string;
   children?: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -23,10 +20,11 @@ export const ZStack = React.forwardRef<HTMLDivElement, ZStackProps>(
       children,
       style,
       className,
+      ...attr
     }: ZStackProps,
     ref
   ) {
-    const As = as as React.ComponentType | React.ElementType;
+    const As = as as React.ElementType;
 
     const styles: React.CSSProperties = {
       display: "block",
@@ -74,7 +72,12 @@ export const ZStack = React.forwardRef<HTMLDivElement, ZStackProps>(
     }
 
     return (
-      <As ref={ref} style={{ ...styles, ...style }} className={className}>
+      <As
+        ref={ref}
+        style={{ ...styles, ...style }}
+        className={className}
+        {...attr}
+      >
         {React.Children.map(children, (child) => {
           return <div style={itemStyle}>{child}</div>;
         })}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
 const justifyContentMap = {
   start: "flex-start",
@@ -15,16 +15,13 @@ const alignItemsMap = {
 export type HorizontalAlignment = keyof typeof justifyContentMap;
 export type VerticalAlignment = keyof typeof alignItemsMap;
 
-export interface HStackProps {
+export interface HStackProps extends HTMLAttributes<HTMLElement> {
   horizontalAlignment?: HorizontalAlignment;
   verticalAlignment?: VerticalAlignment;
   height?: React.CSSProperties["height"];
   width?: React.CSSProperties["width"];
   fullHeight?: boolean;
-  as?:
-    | string
-    | React.ElementType
-    | React.ComponentType<{ children: React.ReactNode }>;
+  as?: string;
   children?: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -41,10 +38,11 @@ export const HStack = React.forwardRef<HTMLElement, HStackProps>(
       children,
       style,
       className,
+      ...attr
     }: HStackProps,
     ref
   ) {
-    const As = as as React.ComponentType | React.ElementType;
+    const As = as as React.ElementType;
     const propertyDrivenStyles: React.CSSProperties = {
       display: "flex",
       position: "relative",
@@ -64,6 +62,7 @@ export const HStack = React.forwardRef<HTMLElement, HStackProps>(
         ref={ref}
         className={className}
         style={{ ...propertyDrivenStyles, ...style }}
+        {...attr}
       >
         {children}
       </As>

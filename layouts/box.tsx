@@ -14,10 +14,7 @@ export interface BoxProps {
   fillSpaceWeight?: number;
   style?: React.CSSProperties;
   className?: string;
-  as?:
-    | string
-    | React.ElementType
-    | React.ComponentType<{ children: React.ReactNode }>;
+  as?: string;
   children?: React.ReactNode;
   enableResizeOnTop?: boolean;
   enableResizeOnRight?: boolean;
@@ -75,7 +72,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   }: BoxProps,
   ref
 ) {
-  const As = as as React.ComponentType | React.ElementType;
+  const As = as as React.ElementType;
   const boxRef = useRef<HTMLElement | null>(null);
   const isFlexing = fillSpace && width === "auto" && height === "auto";
   const flex = isFlexing ? fillSpaceWeight : undefined;

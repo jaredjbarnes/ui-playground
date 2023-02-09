@@ -1,4 +1,4 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
 const alignmentMap = {
   start: "flex-start",
@@ -8,15 +8,12 @@ const alignmentMap = {
 
 export type Alignment = keyof typeof alignmentMap;
 
-export interface VStackProps {
+export interface VStackProps extends HTMLAttributes<HTMLElement> {
   horizontalAlignment?: Alignment;
   verticalAlignment?: Alignment;
   width?: React.CSSProperties["width"];
   height?: React.CSSProperties["height"];
-  as?:
-    | string
-    | React.ElementType
-    | React.ComponentType<{ children: React.ReactNode }>;
+  as?: string;
   children?: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -33,10 +30,11 @@ export const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
       children,
       style,
       className,
+      ...attr
     }: VStackProps,
     ref
   ) {
-    const As = as as React.ComponentType | React.ElementType;
+    const As = as as React.ElementType;
     const propertyDrivenStyles: React.CSSProperties = {
       display: "flex",
       position: "relative",
@@ -56,6 +54,7 @@ export const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
         ref={ref}
         className={className}
         style={{ ...propertyDrivenStyles, ...style }}
+        {...attr}
       >
         {children}
       </As>
