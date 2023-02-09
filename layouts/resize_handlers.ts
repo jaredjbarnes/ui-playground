@@ -1,5 +1,5 @@
 export function createHorizontalResizeHandler(
-  targetRef: React.MutableRefObject<HTMLDivElement | null>,
+  targetRef: React.MutableRefObject<HTMLElement | null>,
   invert = false
 ) {
   const direction = invert ? -1 : 1;
@@ -41,7 +41,7 @@ export function createHorizontalResizeHandler(
 }
 
 export function createVerticalResizeHandler(
-  targetRef: React.MutableRefObject<HTMLDivElement | null>,
+  targetRef: React.MutableRefObject<HTMLElement | null>,
   invert = false
 ) {
   const direction = invert ? -1 : 1;

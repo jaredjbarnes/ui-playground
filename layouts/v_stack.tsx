@@ -12,6 +12,11 @@ export interface VStackProps {
   horizontalAlignment?: Alignment;
   verticalAlignment?: Alignment;
   width?: React.CSSProperties["width"];
+  height?: React.CSSProperties["height"];
+  as?:
+    | string
+    | React.ElementType
+    | React.ComponentType<{ children: React.ReactNode }>;
   children?: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -23,17 +28,22 @@ export const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
       horizontalAlignment = "center",
       verticalAlignment = "center",
       width = "100%",
+      height = "100%",
+      as = "div",
       children,
       style,
       className,
     }: VStackProps,
     ref
   ) {
+    const As = as as React.ComponentType | React.ElementType;
     const propertyDrivenStyles: React.CSSProperties = {
       display: "flex",
       position: "relative",
       width,
-      height: "100%",
+      height,
+      padding: "0px",
+      margin: "0px",
       opacity: "1",
       zIndex: "1",
       flexDirection: "column",
@@ -42,13 +52,13 @@ export const VStack = React.forwardRef<HTMLDivElement, VStackProps>(
     };
 
     return (
-      <div
+      <As
         ref={ref}
         className={className}
         style={{ ...propertyDrivenStyles, ...style }}
       >
         {children}
-      </div>
+      </As>
     );
   }
 );

@@ -11,7 +11,7 @@ const leftResizeHandleStyle: React.CSSProperties = {
 };
 
 export interface LeftResizeHandleProps {
-  targetRef: React.MutableRefObject<HTMLDivElement | null>;
+  targetRef: React.MutableRefObject<HTMLElement | null>;
 }
 
 export function LeftResizeHandle({ targetRef }: LeftResizeHandleProps) {

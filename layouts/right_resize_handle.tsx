@@ -11,7 +11,7 @@ const rightResizeHandleStyle: React.CSSProperties = {
 };
 
 export interface RightResizeHandleProps {
-  targetRef: React.MutableRefObject<HTMLDivElement | null>;
+  targetRef: React.MutableRefObject<HTMLElement | null>;
 }
 
 export function RightResizeHandle({ targetRef }: RightResizeHandleProps) {

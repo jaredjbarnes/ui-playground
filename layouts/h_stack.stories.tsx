@@ -13,6 +13,22 @@ const rect = {
   height: "100px",
 };
 
+export const AsExample = () => {
+  return (
+    <HStack as="ul" width="auto" height="40px">
+      <Spacer />
+      <li>First Item</li>
+      <Spacer />
+      <li>Second Item</li>
+      <Spacer />
+      <li>Third Item</li>
+      <Spacer />
+      <li>Fourth Item</li>
+      <Spacer />
+    </HStack>
+  );
+};
+
 export const Primary = () => (
   <HStack fullHeight horizontalAlignment="start">
     <Box

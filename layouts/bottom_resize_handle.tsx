@@ -11,7 +11,7 @@ const bottomResizeHandleStyle: React.CSSProperties = {
 };
 
 export interface BottomResizeHandleProps {
-  targetRef: React.MutableRefObject<HTMLDivElement | null>;
+  targetRef: React.MutableRefObject<HTMLElement | null>;
 }
 
 export function BottomResizeHandle({ targetRef }: BottomResizeHandleProps) {

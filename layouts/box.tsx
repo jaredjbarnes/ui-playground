@@ -14,6 +14,10 @@ export interface BoxProps {
   fillSpaceWeight?: number;
   style?: React.CSSProperties;
   className?: string;
+  as?:
+    | string
+    | React.ElementType
+    | React.ComponentType<{ children: React.ReactNode }>;
   children?: React.ReactNode;
   enableResizeOnTop?: boolean;
   enableResizeOnRight?: boolean;
@@ -49,7 +53,7 @@ const content: React.CSSProperties = {
   height: "100%",
 };
 
-export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
+export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   {
     width = "auto",
     height = "auto",
@@ -61,6 +65,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
     fillSpaceWeight = 1,
     style,
     className,
+    as = "div",
     children,
     enableResizeOnTop,
     enableResizeOnRight,
@@ -70,7 +75,8 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
   }: BoxProps,
   ref
 ) {
-  const boxRef = useRef<HTMLDivElement | null>(null);
+  const As = as as React.ComponentType | React.ElementType;
+  const boxRef = useRef<HTMLElement | null>(null);
   const isFlexing = fillSpace && width === "auto" && height === "auto";
   const flex = isFlexing ? fillSpaceWeight : undefined;
   const finalWidth = fullWidth ? "100%" : width;
@@ -103,7 +109,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
   }
 
   return (
-    <div
+    <As
       ref={forkedRef}
       style={{
         ...style,
@@ -121,6 +127,6 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(function Box(
     >
       <div style={{ ...content, overflow }}>{children}</div>
       {handles}
-    </div>
+    </As>
   );
 });

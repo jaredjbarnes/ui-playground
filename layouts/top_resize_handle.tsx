@@ -11,7 +11,7 @@ const topResizeHandleStyle: React.CSSProperties = {
 };
 
 export interface TopResizeHandleProps {
-  targetRef: React.MutableRefObject<HTMLDivElement | null>;
+  targetRef: React.MutableRefObject<HTMLElement | null>;
 }
 
 export function TopResizeHandle({ targetRef }: TopResizeHandleProps) {
