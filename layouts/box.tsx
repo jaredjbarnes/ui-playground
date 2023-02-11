@@ -6,16 +6,13 @@ import { RightResizeHandle } from "./right_resize_handle";
 import { TopResizeHandle } from "./top_resize_handle";
 
 export interface BoxProps {
+  as?: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
   fillSpace?: boolean;
   shadow?: React.CSSProperties["boxShadow"];
   scroll?: boolean;
   fillSpaceWeight?: number;
-  style?: React.CSSProperties;
-  className?: string;
-  as?: string;
-  children?: React.ReactNode;
   enableResizeOnTop?: boolean;
   enableResizeOnRight?: boolean;
   enableResizeOnBottom?: boolean;
@@ -40,6 +37,9 @@ export interface BoxProps {
   borderLeft?: React.CSSProperties["borderLeft"];
   opacity?: React.CSSProperties["opacity"];
   transform?: React.CSSProperties["transform"];
+  style?: React.CSSProperties;
+  className?: string;
+  children?: React.ReactNode;
 }
 
 const content: React.CSSProperties = {

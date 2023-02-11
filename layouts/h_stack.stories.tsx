@@ -16,15 +16,15 @@ const rect = {
 export const AsExample = () => {
   return (
     <HStack as="ul" width="auto" height="40px">
-      <Spacer />
+      <Spacer width="10px" />
       <li>First Item</li>
-      <Spacer />
+      <Spacer width="10px" />
       <li>Second Item</li>
-      <Spacer />
+      <Spacer width="10px" />
       <li>Third Item</li>
-      <Spacer />
+      <Spacer width="10px" />
       <li>Fourth Item</li>
-      <Spacer />
+      <Spacer width="10px" />
     </HStack>
   );
 };
@@ -113,10 +113,9 @@ export const Asides = () => (
 
 export const Simple = () => {
   return (
-    <HStack horizontalAlignment="start">
-      <div>Brent</div>
-      <div>Jared</div>
-      <Box fillSpace fullHeight></Box>
+    <HStack height="40px">
+      <button>First</button>
+      <button>Second</button>
     </HStack>
   );
 };

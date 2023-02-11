@@ -163,3 +163,20 @@ export const BoxExample = () => {
     />
   );
 };
+
+export const IntrinsicHeight = () => {
+  return (
+    <>
+      <VStack as="button" inline height="100px" width="100px">
+        <span>Hello</span>
+        <Spacer height="10px" />
+        <span>World</span>
+      </VStack>
+      <VStack as="button" inline height="100px" width="100px">
+        <span>Hello</span>
+        <Spacer height="10px" />
+        <span>World</span>
+      </VStack>
+    </>
+  );
+};
