@@ -45,7 +45,7 @@ export const VStack = React.forwardRef(function VStack(
     padding: "0px",
     margin: "0px",
     opacity: "1",
-    zIndex: "1",
+    zIndex: "0",
     flexDirection: "column",
     justifyContent: alignmentMap[verticalAlignment],
     alignItems: alignmentMap[horizontalAlignment],

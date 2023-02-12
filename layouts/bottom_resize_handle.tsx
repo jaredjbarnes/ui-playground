@@ -7,6 +7,7 @@ const bottomResizeHandleStyle: React.CSSProperties = {
   left: "0px",
   height: "10px",
   width: "100%",
+  zIndex: "1",
   cursor: "ns-resize",
 };
 
@@ -16,5 +17,7 @@ export interface BottomResizeHandleProps {
 
 export function BottomResizeHandle({ targetRef }: BottomResizeHandleProps) {
   const resizeHandler = createVerticalResizeHandler(targetRef);
-  return <div onMouseDown={resizeHandler} style={bottomResizeHandleStyle}></div>;
+  return (
+    <div onMouseDown={resizeHandler} style={bottomResizeHandleStyle}></div>
+  );
 }

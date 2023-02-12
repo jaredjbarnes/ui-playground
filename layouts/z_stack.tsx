@@ -32,6 +32,7 @@ export const ZStack = React.forwardRef(function ZStack(
     position: "relative",
     width: "100%",
     height: "100%",
+    zIndex: "0",
   };
 
   const itemStyle: React.CSSProperties = {

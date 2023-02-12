@@ -114,8 +114,8 @@ export const Asides = () => (
 export const Simple = () => {
   return (
     <HStack height="40px">
-      <button>First</button>
-      <button>Second</button>
+      <button style={{width: "100%"}}>First</button>
+      <button style={{width: "100%"}}>Second</button>
     </HStack>
   );
 };

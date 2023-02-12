@@ -115,7 +115,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
         height: finalHeight,
         boxSizing: "border-box",
         flex,
-        zIndex: "1",
+        zIndex: "0",
         transform: "translate3d(0,0,0)",
         boxShadow: shadow,
         ...otherStyles,

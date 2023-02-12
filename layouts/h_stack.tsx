@@ -44,7 +44,7 @@ export const HStack = React.forwardRef(function HStack(
   ref: React.Ref<HTMLElement>
 ) {
   const As = as as React.ElementType;
-  
+
   const propertyDrivenStyles: React.CSSProperties = {
     display: inline ? "inline-flex" : "flex",
     position: "relative",
@@ -53,7 +53,7 @@ export const HStack = React.forwardRef(function HStack(
     height,
     width,
     opacity: "1",
-    zIndex: "1",
+    zIndex: "0",
     flexDirection: "row",
     justifyContent: justifyContentMap[horizontalAlignment],
     alignItems: alignItemsMap[verticalAlignment],
