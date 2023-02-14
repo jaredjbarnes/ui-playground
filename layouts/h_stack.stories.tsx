@@ -113,9 +113,12 @@ export const Asides = () => (
 
 export const Simple = () => {
   return (
-    <HStack height="40px">
-      <button style={{width: "100%"}}>First</button>
-      <button style={{width: "100%"}}>Second</button>
+    <HStack height="auto">
+      <button style={{ width: "30%", height: "auto" }}>First</button>
+      <Box fillSpace>
+        <input style={{ width: "100%", height:"100%", boxSizing: "border-box" }} />
+      </Box>
+      <button style={{ width: "auto", height: "auto" }}>Second</button>
     </HStack>
   );
 };

@@ -1,5 +1,20 @@
 import React, { HTMLAttributes } from "react";
 
+const rootStyle: React.CSSProperties = {
+  position: "relative",
+  width: "100%",
+  height: "100%",
+  zIndex: "0",
+};
+
+const itemStyle: React.CSSProperties = {
+  position: "absolute",
+  display: "flex",
+  flexDirection: "row",
+  width: "100%",
+  height: "100%",
+};
+
 export type Alignment = "start" | "center" | "end";
 
 export interface ZStackProps extends HTMLAttributes<HTMLElement> {
@@ -26,49 +41,36 @@ export const ZStack = React.forwardRef(function ZStack(
   ref: React.Ref<HTMLElement>
 ) {
   const As = as as React.ElementType;
-
-  const rootStyle: React.CSSProperties = {
-    display: inline ? "inline-block" : "block",
-    position: "relative",
-    width: "100%",
-    height: "100%",
-    zIndex: "0",
-  };
-
-  const itemStyle: React.CSSProperties = {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    height: "100%",
-  };
+  const rootDisplay = inline ? "inline-block" : "block";
+  let itemAlignItems = "flex-start";
+  let itemJustifyContent = "flex-start";
 
   switch (verticalAlignment) {
     case "start": {
-      itemStyle.alignItems = "flex-start";
+      itemAlignItems = "flex-start";
       break;
     }
     case "center": {
-      itemStyle.alignItems = "center";
+      itemAlignItems = "center";
       break;
     }
     case "end": {
-      itemStyle.alignItems = "flex-end";
+      itemAlignItems = "flex-end";
       break;
     }
   }
 
   switch (horizontalAlignment) {
     case "start": {
-      itemStyle.justifyContent = "flex-start";
+      itemJustifyContent = "flex-start";
       break;
     }
     case "center": {
-      itemStyle.justifyContent = "center";
+      itemJustifyContent = "center";
       break;
     }
     case "end": {
-      itemStyle.justifyContent = "flex-end";
+      itemJustifyContent = "flex-end";
       break;
     }
   }
@@ -76,12 +78,22 @@ export const ZStack = React.forwardRef(function ZStack(
   return (
     <As
       ref={ref}
-      style={{ ...rootStyle, ...style }}
+      style={{ ...rootStyle, display: rootDisplay, ...style }}
       className={className}
       {...attr}
     >
       {React.Children.map(children, (child) => {
-        return <div style={itemStyle}>{child}</div>;
+        return (
+          <div
+            style={{
+              ...itemStyle,
+              alignItems: itemAlignItems,
+              justifyContent: itemJustifyContent,
+            }}
+          >
+            {child}
+          </div>
+        );
       })}
     </As>
   );

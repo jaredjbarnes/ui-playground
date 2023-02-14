@@ -58,7 +58,6 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     fullWidth = false,
     fillSpace = false,
     shadow,
-    scroll = false,
     fillSpaceWeight = 1,
     style,
     className,
@@ -78,7 +77,6 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   const flex = isFlexing ? fillSpaceWeight : undefined;
   const finalWidth = fullWidth ? "100%" : width;
   const finalHeight = fullHeight ? "100%" : height;
-  const overflow = scroll ? "auto" : "hidden";
   const forkedRef = useForkRef(ref, boxRef);
   let handles: React.ReactElement[] = [];
 
@@ -122,7 +120,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
       }}
       className={className}
     >
-      <div style={{ ...content, overflow }}>{children}</div>
+      {children}
       {handles}
     </As>
   );
