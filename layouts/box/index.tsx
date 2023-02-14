@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useForkRef } from "../foundation/react/hooks/use_fork_ref";
+import { useForkRef } from "../../foundation/react/hooks/use_fork_ref";
 import { BottomResizeHandle } from "./bottom_resize_handle";
 import { LeftResizeHandle } from "./left_resize_handle";
 import { RightResizeHandle } from "./right_resize_handle";
@@ -58,6 +58,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     fullWidth = false,
     fillSpace = false,
     shadow,
+    scroll = false,
     fillSpaceWeight = 1,
     style,
     className,
@@ -71,14 +72,16 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   }: BoxProps,
   ref
 ) {
+  let handles: React.ReactElement[] = [];
+  
   const As = as as React.ElementType;
   const boxRef = useRef<HTMLElement | null>(null);
   const isFlexing = fillSpace && width === "auto" && height === "auto";
   const flex = isFlexing ? fillSpaceWeight : undefined;
   const finalWidth = fullWidth ? "100%" : width;
   const finalHeight = fullHeight ? "100%" : height;
+  const overflow = scroll ? "auto" : "hidden";
   const forkedRef = useForkRef(ref, boxRef);
-  let handles: React.ReactElement[] = [];
 
   if (isFlexing) {
     enableResizeOnTop = false;
@@ -101,6 +104,10 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     if (enableResizeOnRight) {
       handles.push(<RightResizeHandle targetRef={boxRef} />);
     }
+  }
+
+  if (scroll) {
+    children = <div style={{ ...content, overflow }}>{children}</div>;
   }
 
   return (

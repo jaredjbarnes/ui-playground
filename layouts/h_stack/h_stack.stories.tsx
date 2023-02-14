@@ -1,7 +1,7 @@
 import React from "react";
-import { Spacer } from "./spacer";
-import { Box } from "./box";
-import { HStack } from "./h_stack";
+import { Spacer } from "../spacer";
+import { Box } from "../box";
+import { HStack } from "./index";
 
 export default {
   title: "HStack",
@@ -114,11 +114,13 @@ export const Asides = () => (
 export const Simple = () => {
   return (
     <HStack height="auto">
-      <button style={{ width: "30%", height: "auto" }}>First</button>
+      <button style={{ width: "30%" }}>First</button>
+      <Spacer width="10px" />
       <Box fillSpace>
-        <input style={{ width: "100%", height:"100%", boxSizing: "border-box" }} />
+        <input style={{ width: "100%", boxSizing: "border-box" }} />
       </Box>
-      <button style={{ width: "auto", height: "auto" }}>Second</button>
+      <Spacer width="10px" />
+      <button>Second</button>
     </HStack>
   );
 };

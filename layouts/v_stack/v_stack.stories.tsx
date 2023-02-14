@@ -1,8 +1,8 @@
 import React from "react";
-import { Box } from "./box";
-import { HStack } from "./h_stack";
-import { Spacer } from "./spacer";
-import { VStack } from "./v_stack";
+import { Box } from "../box";
+import { HStack } from "../h_stack";
+import { Spacer } from "../spacer";
+import { VStack } from "./index";
 
 export default {
   title: "VStack",
