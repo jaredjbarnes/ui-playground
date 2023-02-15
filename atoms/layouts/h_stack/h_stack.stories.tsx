@@ -30,7 +30,7 @@ export const AsExample = () => {
 };
 
 export const Primary = () => (
-  <HStack fullHeight horizontalAlignment="start">
+  <HStack horizontalAlignment="start">
     <Box
       border="3px solid black"
       backgroundColor="red"
@@ -88,7 +88,7 @@ export const Primary = () => (
 );
 
 export const Asides = () => (
-  <HStack fullHeight horizontalAlignment="center">
+  <HStack horizontalAlignment="center">
     <Box
       backgroundColor="red"
       width="100px"
@@ -122,5 +122,13 @@ export const Simple = () => {
       <Spacer width="10px" />
       <button>Second</button>
     </HStack>
+  );
+};
+
+export const Public = () => {
+  return (
+    <div>
+      <script src="test.js"></script>
+    </div>
   );
 };

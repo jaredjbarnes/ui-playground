@@ -4,7 +4,6 @@ import { HStack } from "../h_stack";
 import { Spacer } from "../spacer";
 import { VStack } from "../v_stack";
 import { ZStack } from "./index";
-import "../theme/xp_design_system.css";
 
 export default {
   title: "ZStack",

@@ -2,8 +2,6 @@ import React, { HTMLAttributes } from "react";
 
 const rootStyle: React.CSSProperties = {
   position: "relative",
-  width: "100%",
-  height: "100%",
   zIndex: "0",
 };
 
@@ -22,6 +20,10 @@ export interface ZStackProps extends HTMLAttributes<HTMLElement> {
   verticalAlignment?: Alignment;
   as?: string;
   children?: React.ReactNode;
+  minWidth?: React.CSSProperties["minWidth"];
+  width?: React.CSSProperties["width"];
+  minHeight?: React.CSSProperties["minHeight"];
+  height?: React.CSSProperties["height"];
   inline?: boolean;
   style?: React.CSSProperties;
   className?: string;
@@ -33,6 +35,10 @@ export const ZStack = React.forwardRef(function ZStack(
     verticalAlignment = "center",
     as = "div",
     inline = false,
+    minWidth,
+    width = "100%",
+    minHeight,
+    height = "100%",
     children,
     style,
     className,
@@ -78,7 +84,15 @@ export const ZStack = React.forwardRef(function ZStack(
   return (
     <As
       ref={ref}
-      style={{ ...rootStyle, display: rootDisplay, ...style }}
+      style={{
+        ...rootStyle,
+        display: rootDisplay,
+        minWidth,
+        width,
+        minHeight,
+        height,
+        ...style,
+      }}
       className={className}
       {...attr}
     >

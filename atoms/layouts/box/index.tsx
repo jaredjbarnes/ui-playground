@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useForkRef } from "../../foundation/react/hooks/use_fork_ref";
+import { useForkRef } from "../../../foundation/react/hooks/use_fork_ref";
 import { BottomResizeHandle } from "./bottom_resize_handle";
 import { LeftResizeHandle } from "./left_resize_handle";
 import { RightResizeHandle } from "./right_resize_handle";
@@ -36,6 +36,7 @@ export interface BoxProps {
   borderBottom?: React.CSSProperties["borderBottom"];
   borderLeft?: React.CSSProperties["borderLeft"];
   opacity?: React.CSSProperties["opacity"];
+  zIndex?: React.CSSProperties["zIndex"];
   transform?: React.CSSProperties["transform"];
   style?: React.CSSProperties;
   className?: string;
@@ -73,7 +74,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   ref
 ) {
   let handles: React.ReactElement[] = [];
-  
+
   const As = as as React.ElementType;
   const boxRef = useRef<HTMLElement | null>(null);
   const isFlexing = fillSpace && width === "auto" && height === "auto";

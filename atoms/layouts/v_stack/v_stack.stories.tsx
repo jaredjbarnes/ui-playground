@@ -72,7 +72,7 @@ export const HeaderBodyFooter = () => (
       height="20%"
       minHeight="40px"
     >
-      <HStack fullHeight>
+      <HStack>
         <Spacer width="8px" />
         <Box>Title</Box>
         <Spacer />

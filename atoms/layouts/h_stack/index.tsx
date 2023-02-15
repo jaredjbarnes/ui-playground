@@ -1,17 +1,26 @@
 import React, { HTMLAttributes } from "react";
 
-const alignmentMap = {
+const justifyContentMap = {
   start: "flex-start",
   center: "center",
   end: "flex-end",
 };
 
-export type Alignment = keyof typeof alignmentMap;
+const alignItemsMap = {
+  start: "flex-start",
+  center: "center",
+  end: "flex-end",
+};
 
-export interface VStackProps extends HTMLAttributes<HTMLElement> {
-  horizontalAlignment?: Alignment;
-  verticalAlignment?: Alignment;
+export type HorizontalAlignment = keyof typeof justifyContentMap;
+export type VerticalAlignment = keyof typeof alignItemsMap;
+
+export interface HStackProps extends HTMLAttributes<HTMLElement> {
+  horizontalAlignment?: HorizontalAlignment;
+  verticalAlignment?: VerticalAlignment;
+  minWidth?: React.CSSProperties["minWidth"];
   width?: React.CSSProperties["width"];
+  minHeight?: React.CSSProperties["minHeight"];
   height?: React.CSSProperties["height"];
   as?: string;
   children?: React.ReactNode;
@@ -20,11 +29,13 @@ export interface VStackProps extends HTMLAttributes<HTMLElement> {
   className?: string;
 }
 
-export const VStack = React.forwardRef(function VStack(
+export const HStack = React.forwardRef(function HStack(
   {
     horizontalAlignment = "center",
     verticalAlignment = "center",
+    minWidth,
     width = "100%",
+    minHeight,
     height = "100%",
     as = "div",
     inline = false,
@@ -32,23 +43,25 @@ export const VStack = React.forwardRef(function VStack(
     style,
     className,
     ...attr
-  }: VStackProps,
+  }: HStackProps,
   ref: React.Ref<HTMLElement>
 ) {
   const As = as as React.ElementType;
-  
+
   const propertyDrivenStyles: React.CSSProperties = {
     display: inline ? "inline-flex" : "flex",
     position: "relative",
-    width,
-    height,
     padding: "0px",
     margin: "0px",
+    minWidth,
+    width,
+    minHeight,
+    height,
     opacity: "1",
     zIndex: "0",
-    flexDirection: "column",
-    justifyContent: alignmentMap[verticalAlignment],
-    alignItems: alignmentMap[horizontalAlignment],
+    flexDirection: "row",
+    justifyContent: justifyContentMap[horizontalAlignment],
+    alignItems: alignItemsMap[verticalAlignment],
   };
 
   return (
