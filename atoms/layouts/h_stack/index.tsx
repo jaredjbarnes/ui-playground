@@ -22,6 +22,7 @@ export interface HStackProps extends HTMLAttributes<HTMLElement> {
   width?: React.CSSProperties["width"];
   minHeight?: React.CSSProperties["minHeight"];
   height?: React.CSSProperties["height"];
+  zIndex?: React.CSSProperties["zIndex"];
   as?: string;
   children?: React.ReactNode;
   inline?: boolean;
@@ -39,6 +40,7 @@ export const HStack = React.forwardRef(function HStack(
     height = "100%",
     as = "div",
     inline = false,
+    zIndex = 0,
     children,
     style,
     className,
@@ -58,7 +60,7 @@ export const HStack = React.forwardRef(function HStack(
     minHeight,
     height,
     opacity: "1",
-    zIndex: "0",
+    zIndex,
     flexDirection: "row",
     justifyContent: justifyContentMap[horizontalAlignment],
     alignItems: alignItemsMap[verticalAlignment],

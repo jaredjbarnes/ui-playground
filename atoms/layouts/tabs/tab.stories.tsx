@@ -9,7 +9,7 @@ export default {
 
 export const FewTab = () => {
   return (
-    <Tabs>
+    <Tabs selectedTabIndex={2}>
       <Tab id="1" name="First">
         First
       </Tab>

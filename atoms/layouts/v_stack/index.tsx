@@ -15,6 +15,7 @@ export interface VStackProps extends HTMLAttributes<HTMLElement> {
   width?: React.CSSProperties["width"];
   minHeight?: React.CSSProperties["minHeight"];
   height?: React.CSSProperties["height"];
+  zIndex?: React.CSSProperties["zIndex"];
   as?: string;
   children?: React.ReactNode;
   inline?: boolean;
@@ -30,6 +31,7 @@ export const VStack = React.forwardRef(function VStack(
     width = "100%",
     minHeight,
     height = "100%",
+    zIndex = 0,
     as = "div",
     inline = false,
     children,
@@ -51,7 +53,7 @@ export const VStack = React.forwardRef(function VStack(
     padding: "0px",
     margin: "0px",
     opacity: "1",
-    zIndex: "0",
+    zIndex,
     flexDirection: "column",
     justifyContent: alignmentMap[verticalAlignment],
     alignItems: alignmentMap[horizontalAlignment],

@@ -24,6 +24,7 @@ export interface ZStackProps extends HTMLAttributes<HTMLElement> {
   width?: React.CSSProperties["width"];
   minHeight?: React.CSSProperties["minHeight"];
   height?: React.CSSProperties["height"];
+  zIndex?: React.CSSProperties["zIndex"];
   inline?: boolean;
   style?: React.CSSProperties;
   className?: string;
@@ -39,6 +40,7 @@ export const ZStack = React.forwardRef(function ZStack(
     width = "100%",
     minHeight,
     height = "100%",
+    zIndex = 0,
     children,
     style,
     className,
@@ -91,6 +93,7 @@ export const ZStack = React.forwardRef(function ZStack(
         width,
         minHeight,
         height,
+        zIndex,
         ...style,
       }}
       className={className}

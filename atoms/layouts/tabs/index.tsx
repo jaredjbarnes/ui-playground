@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Box } from "../box";
+import { HStack } from "../h_stack";
+import { Spacer } from "../spacer";
 import { VStack } from "../v_stack";
 import { TabProps } from "./tab";
 
@@ -15,6 +17,9 @@ export function Tabs({ children, selectedTabIndex = 0 }: TabsProps) {
     0
   );
   const [focusedTabIndex, setFocusedTabIndex] = useState(selectedTabIndex);
+  useLayoutEffect(() => {
+    setFocusedTabIndex(selectedTabIndex);
+  }, [selectedTabIndex]);
 
   const buttons = childrenArray.map((child, index) => {
     const isSelected = index === focusedTabIndex;
@@ -25,7 +30,12 @@ export function Tabs({ children, selectedTabIndex = 0 }: TabsProps) {
     }
 
     return (
-      <button aria-selected={isSelected} aria-controls={id} onClick={select}>
+      <button
+        key={index}
+        aria-selected={isSelected}
+        aria-controls={id}
+        onClick={select}
+      >
         {child.props.name}
       </button>
     );
@@ -35,10 +45,10 @@ export function Tabs({ children, selectedTabIndex = 0 }: TabsProps) {
 
   return (
     <VStack>
-      <menu role="tablist" style={{ width: "100%" }}>
+      <HStack horizontalAlignment="start" as="menu" role="tablist" height="auto" zIndex={2}>
         {buttons}
-      </menu>
-      <Box fillSpace fullWidth zIndex={2}>
+      </HStack>
+      <Box fillSpace fullWidth>
         {article}
       </Box>
     </VStack>
