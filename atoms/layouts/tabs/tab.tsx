@@ -9,9 +9,12 @@ const tabStyles = {
 export interface TabProps {
   id: string;
   name: string;
+  error?: Error;
+  isDisabled?: boolean;
+  isLoading?: boolean;
   children?: React.ReactNode;
-  className?: string;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 export const Tab = React.forwardRef(function Tab({

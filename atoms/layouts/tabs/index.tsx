@@ -1,51 +1,68 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
+import "../../../foundation/css/base.css";
 import { Box } from "../box";
 import { HStack } from "../h_stack";
-import { Spacer } from "../spacer";
 import { VStack } from "../v_stack";
 import { TabProps } from "./tab";
+import { TabButton } from "./tab_button";
 
 export interface TabsProps {
   children: React.ReactElement<TabProps> | Array<React.ReactElement<TabProps>>;
+  tabAlignment?: "start" | "center" | "end";
   selectedTabIndex?: number;
 }
 
-export function Tabs({ children, selectedTabIndex = 0 }: TabsProps) {
+export function Tabs({
+  children,
+  tabAlignment = "start",
+  selectedTabIndex = 0,
+}: TabsProps) {
   const childrenArray = React.Children.map(children, (c) => c);
+
   selectedTabIndex = Math.max(
     Math.min(childrenArray.length - 1, selectedTabIndex),
     0
   );
-  const [focusedTabIndex, setFocusedTabIndex] = useState(selectedTabIndex);
+
+  const [activeTabIndex, setActiveTabIndex] = useState(selectedTabIndex);
+
   useLayoutEffect(() => {
-    setFocusedTabIndex(selectedTabIndex);
+    setActiveTabIndex(selectedTabIndex);
   }, [selectedTabIndex]);
 
-  const buttons = childrenArray.map((child, index) => {
-    const isSelected = index === focusedTabIndex;
-    const id = child.props.id;
+  const select = useCallback(function select(index: number) {
+    setActiveTabIndex(index);
+  }, []);
 
-    function select() {
-      setFocusedTabIndex(index);
-    }
+  const buttons = childrenArray.map((child, index) => {
+    const isSelected = index === activeTabIndex;
+    const { id, name, isDisabled = false, error } = child.props;
 
     return (
-      <button
-        key={index}
-        aria-selected={isSelected}
-        aria-controls={id}
-        onClick={select}
-      >
-        {child.props.name}
-      </button>
+      <TabButton
+        id={id}
+        index={index}
+        name={name}
+        isDisabled={isDisabled}
+        isSelected={isSelected}
+        error={error}
+        onSelect={select}
+      />
     );
   });
 
-  const article = childrenArray[focusedTabIndex];
+  const article = childrenArray[activeTabIndex];
 
   return (
     <VStack>
-      <HStack horizontalAlignment="start" as="menu" role="tablist" height="auto" zIndex={2}>
+      <HStack
+        as="menu"
+        role="tablist"
+        horizontalAlignment={tabAlignment}
+        verticalAlignment="end"
+        height="auto"
+        zIndex={2}
+      >
         {buttons}
       </HStack>
       <Box fillSpace fullWidth>

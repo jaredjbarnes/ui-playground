@@ -19,35 +19,35 @@ export const FewTab = () => {
       <Tab id="3" name="Third">
         Third
       </Tab>
-      <Tab id="2" name="Second">
-        Second
+      <Tab id="4" name="Fourth">
+        Fourth
       </Tab>
-      <Tab id="3" name="Third">
-        Third
+      <Tab id="5" name="Fifth">
+        Fifth
       </Tab>
-      <Tab id="2" name="Second">
-        Second
+      <Tab id="6" name="Sixth">
+        Sixth
       </Tab>
-      <Tab id="3" name="Third">
-        Third
+      <Tab id="7" name="Seventh">
+        Seventh
       </Tab>
-      <Tab id="2" name="Second">
-        Second
+      <Tab id="8" name="Eighth">
+        Eighth
       </Tab>
-      <Tab id="3" name="Third">
-        Third
+      <Tab id="9" name="Ninth">
+        Ninth
       </Tab>
-      <Tab id="2" name="Second">
-        Second
+      <Tab id="10" name="Tenth">
+        Tenth
       </Tab>
-      <Tab id="3" name="Third">
-        Third
+      <Tab id="11" name="Eleventh">
+        Eleventh
       </Tab>
-      <Tab id="2" name="Second">
-        Second
+      <Tab id="12" name="Twelfth">
+        Twelfth
       </Tab>
-      <Tab id="3" name="Third">
-        Third
+      <Tab id="13" name="Thirteenth">
+        Thirteenth
       </Tab>
     </Tabs>
   );
