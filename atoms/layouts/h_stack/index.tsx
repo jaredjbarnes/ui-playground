@@ -20,8 +20,10 @@ export interface HStackProps extends HTMLAttributes<HTMLElement> {
   verticalAlignment?: VerticalAlignment;
   minWidth?: React.CSSProperties["minWidth"];
   width?: React.CSSProperties["width"];
+  maxWidth?: React.CSSProperties["maxWidth"];
   minHeight?: React.CSSProperties["minHeight"];
   height?: React.CSSProperties["height"];
+  maxHeight?: React.CSSProperties["maxHeight"];
   zIndex?: React.CSSProperties["zIndex"];
   as?: string;
   children?: React.ReactNode;
@@ -36,8 +38,10 @@ export const HStack = React.forwardRef(function HStack(
     verticalAlignment = "center",
     minWidth,
     width = "100%",
+    maxWidth,
     minHeight,
     height = "100%",
+    maxHeight,
     as = "div",
     inline = false,
     zIndex = 0,
@@ -57,8 +61,10 @@ export const HStack = React.forwardRef(function HStack(
     margin: "0px",
     minWidth,
     width,
+    maxWidth,
     minHeight,
     height,
+    maxHeight,
     opacity: "1",
     zIndex,
     flexDirection: "row",

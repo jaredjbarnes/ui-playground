@@ -10,7 +10,7 @@ export default {
   component: ZStack,
 };
 
-export const Example = () => {
+export function Example() {
   return (
     <ZStack verticalAlignment="end">
       <img
@@ -42,4 +42,4 @@ export const Example = () => {
       </Box>
     </ZStack>
   );
-};
+}

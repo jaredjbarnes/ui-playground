@@ -8,7 +8,7 @@ export default {
   component: HStack,
 };
 
-export const AsExample = () => {
+export function AsExample() {
   return (
     <HStack height="auto">
       <input id="1" type="radio" checked name="First" />
@@ -17,4 +17,4 @@ export const AsExample = () => {
       </Box>
     </HStack>
   );
-};
+}

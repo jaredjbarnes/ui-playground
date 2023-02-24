@@ -7,7 +7,7 @@ export default {
   component: Tabs,
 };
 
-export const FewTab = () => {
+export function FewTab() {
   return (
     <Tabs selectedTabIndex={2}>
       <Tab id="1" name="First">
@@ -51,4 +51,4 @@ export const FewTab = () => {
       </Tab>
     </Tabs>
   );
-};
+}

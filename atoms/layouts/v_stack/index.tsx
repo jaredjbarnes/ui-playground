@@ -13,8 +13,10 @@ export interface VStackProps extends HTMLAttributes<HTMLElement> {
   verticalAlignment?: Alignment;
   minWidth?: React.CSSProperties["minWidth"];
   width?: React.CSSProperties["width"];
+  maxWidth?: React.CSSProperties["maxWidth"];
   minHeight?: React.CSSProperties["minHeight"];
   height?: React.CSSProperties["height"];
+  maxHeight?: React.CSSProperties["maxHeight"];
   zIndex?: React.CSSProperties["zIndex"];
   as?: string;
   children?: React.ReactNode;
@@ -29,8 +31,10 @@ export const VStack = React.forwardRef(function VStack(
     verticalAlignment = "center",
     minWidth,
     width = "100%",
+    maxWidth,
     minHeight,
     height = "100%",
+    maxHeight,
     zIndex = 0,
     as = "div",
     inline = false,

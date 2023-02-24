@@ -62,7 +62,7 @@ export const Primary = () => (
   </VStack>
 );
 
-export const HeaderBodyFooter = () => (
+export function HeaderBodyFooter() {
   <VStack verticalAlignment="center">
     <Box
       fullWidth
@@ -102,10 +102,10 @@ export const HeaderBodyFooter = () => (
       </fieldset>
     </Box>
     <Box fullWidth backgroundColor="blue" height="40px" />
-  </VStack>
-);
+  </VStack>;
+}
 
-export const Example = () => {
+export function Example() {
   return (
     <VStack>
       <Box height={"30px"} fullWidth background={"grey"}></Box>
@@ -150,9 +150,9 @@ export const Example = () => {
       <Box height={"30px"} background={"grey"} fullWidth></Box>
     </VStack>
   );
-};
+}
 
-export const BoxExample = () => {
+export function BoxExample() {
   return (
     <Box
       background="red"
@@ -162,9 +162,9 @@ export const BoxExample = () => {
       enableResizeOnRight
     />
   );
-};
+}
 
-export const IntrinsicHeight = () => {
+export function IntrinsicHeight() {
   return (
     <>
       <VStack as="button" inline height="100px" width="100px">
@@ -179,4 +179,4 @@ export const IntrinsicHeight = () => {
       </VStack>
     </>
   );
-};
+}
