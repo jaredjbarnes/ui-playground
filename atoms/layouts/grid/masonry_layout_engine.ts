@@ -1,4 +1,4 @@
-import { DistinctValue, ObservableValue } from "ergo-hex";
+import { ObservableValue } from "ergo-hex";
 
 interface Item {
   height: number;
@@ -53,7 +53,7 @@ export class MasonryLayoutEngine {
   private _columnLength: number;
   private _viewportWidth: number;
   private _itemFactory: ItemFactory;
-  private _items: Item[];
+  private _items: ObservableValue<Item[]>;
 
   constructor() {
     this._gap = 0;
@@ -72,22 +72,25 @@ export class MasonryLayoutEngine {
   }
 
   private _updateItems(length: number) {
-    if (length > this._items.length) {
-      const amount = length - this._items.length;
+    this._items.transformValue((items) => {
+      if (length > items.length) {
+        const amount = length - items.length;
 
-      for (let i = 0; i < amount; i++) {
-        this._items.push(this._itemFactory.useInstance());
+        for (let i = 0; i < amount; i++) {
+          items.push(this._itemFactory.useInstance());
+        }
+      } else {
+        while (items.length > length) {
+          const instance = items.pop() as Item;
+          this._itemFactory.releaseInstance(instance);
+        }
       }
-    } else {
-      while (this._items.length > length) {
-        const instance = this._items.pop() as Item;
-        this._itemFactory.releaseInstance(instance);
-      }
-    }
+      return items;
+    });
   }
 
   setItemHeight(index: number, height: number) {
-    const isWithinBound = index < this._items.length && index > 0;
+    const isWithinBound = index < this._items.getValue().length && index > 0;
 
     if (isWithinBound) {
       this._items[index].height = height;
@@ -103,10 +106,10 @@ export class MasonryLayoutEngine {
   }
 
   reflow() {
-    const columnLength = this._columnLength;
-    const itemsLength = this._items.length;
     this._columnLength = this.calculateColumnLength();
 
+    const columnLength = this._columnLength;
+    const itemsLength = this._items.getValue().length;
     for (let column = 0; column < columnLength; column++) {
       let offset = this._gap;
 
@@ -116,10 +119,30 @@ export class MasonryLayoutEngine {
         offset = item.height + this._gap;
       }
     }
+
+    this._items.transformValue((items) => items);
+  }
+
+  reflowColumnFromItemIndex(fromIndex: number) {
+    const columnLength = this._columnLength;
+    const itemsLength = this._items.getValue.length;
+    let offset = this._gap;
+
+    for (let i = fromIndex; i < itemsLength; i += columnLength) {
+      const item = this._items[i];
+      item.top = offset;
+      offset = item.height + this._gap;
+    }
+
+    this._items.transformValue((items) => items);
   }
 
   dispose() {
-    this._items.length = 0;
+    this._items.transformValue((items) => {
+      items.length = 0;
+      return items;
+    });
+
     this._itemFactory.releaseAll();
   }
 }
