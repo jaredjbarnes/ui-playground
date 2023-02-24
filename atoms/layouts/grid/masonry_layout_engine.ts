@@ -1,8 +1,9 @@
-import { ObservableValue } from "ergo-hex";
+import { ObservableValue, ReadonlyObservableValue } from "ergo-hex";
 
 interface Item {
-  height: number;
   top: number;
+  height: number;
+  isVisible: boolean;
 }
 
 export class ItemFactory {
@@ -15,11 +16,15 @@ export class ItemFactory {
 
     if (availableInstances.length === 0) {
       instance = {
-        height: 0,
         top: 0,
+        height: 0,
+        isVisible: false
       };
     } else {
       instance = availableInstances.pop() as Item;
+      instance.top = 0;
+      instance.height = 0;
+      instance.isVisible = false;
     }
 
     this.usedInstances.push(instance);
@@ -50,99 +55,152 @@ export class ItemFactory {
 export class MasonryLayoutEngine {
   private _gap: number;
   private _minColumnWidth: number;
+  private _columnWidth: number;
+  private _columnOffsets: number[];
   private _columnLength: number;
   private _viewportWidth: number;
   private _itemFactory: ItemFactory;
-  private _items: ObservableValue<Item[]>;
+  private _items: Item[];
+  private _isDirty: ObservableValue<boolean>;
+
+  get isDirtyBroadcast(): ReadonlyObservableValue<boolean> {
+    return this._isDirty;
+  }
 
   constructor() {
     this._gap = 0;
     this._minColumnWidth = 100;
+    this._columnOffsets = [];
+    this._columnWidth = 0;
+    this._columnLength = 1;
     this._viewportWidth = 0;
     this._itemFactory = new ItemFactory();
+    this._items = [];
+    this._isDirty = new ObservableValue(false);
   }
 
   setMinColumnWidth(width: number) {
     width = width <= 0 ? 1 : width;
     this._minColumnWidth = width;
+
+    this.reflow();
+    this._isDirty.setValue(true);
   }
 
   setLength(length: number) {
     this._updateItems(length);
   }
 
-  private _updateItems(length: number) {
-    this._items.transformValue((items) => {
-      if (length > items.length) {
-        const amount = length - items.length;
+  setGap(value: number) {
+    this._gap = value;
+  }
 
-        for (let i = 0; i < amount; i++) {
-          items.push(this._itemFactory.useInstance());
-        }
-      } else {
-        while (items.length > length) {
-          const instance = items.pop() as Item;
-          this._itemFactory.releaseInstance(instance);
-        }
+  private _updateItems(length: number) {
+    const items = this._items;
+
+    if (length > items.length) {
+      const amount = length - items.length;
+
+      for (let i = 0; i < amount; i++) {
+        items.push(this._itemFactory.useInstance());
       }
-      return items;
-    });
+    } else {
+      while (items.length > length) {
+        const instance = items.pop() as Item;
+        this._itemFactory.releaseInstance(instance);
+      }
+    }
+    return items;
   }
 
   setItemHeight(index: number, height: number) {
-    const isWithinBound = index < this._items.getValue().length && index > 0;
+    const items = this._items;
+    const isWithinBound = index < items.length && index >= 0;
 
     if (isWithinBound) {
-      this._items[index].height = height;
+      const item = items[index];
+      const oldHeight = item.height;
+      const hasChanged = oldHeight !== height;
+
+      if (hasChanged) {
+        item.height = height;
+        item.isVisible = true;
+        this.reflow();
+      }
     }
   }
 
   setViewportWidth(width: number) {
     this._viewportWidth = width;
+    this.updateColumnData();
+    this.reflow();
+
+    this._isDirty.setValue(true);
   }
 
-  private calculateColumnLength() {
-    return Math.floor(this._viewportWidth / this._minColumnWidth);
+  private updateColumnData() {
+    this._columnLength = Math.floor(
+      (this._viewportWidth - this._gap) / (this._minColumnWidth + this._gap)
+    );
+    const allGaps = this._columnLength * this._gap + this._gap;
+    this._columnWidth = (this._viewportWidth - allGaps) / this._columnLength;
+    this._columnOffsets.length = this._columnLength;
+
+    let offset = this._gap;
+
+    for (let i = 0; i < this._columnLength; i++) {
+      this._columnOffsets[i] = offset;
+      offset += this._columnWidth + this._gap;
+    }
   }
 
   reflow() {
-    this._columnLength = this.calculateColumnLength();
-
+    const items = this._items;
     const columnLength = this._columnLength;
-    const itemsLength = this._items.getValue().length;
+    const itemsLength = items.length;
+    let isDirty = false;
+
     for (let column = 0; column < columnLength; column++) {
       let offset = this._gap;
 
       for (let i = column; i < itemsLength; i += columnLength) {
-        const item = this._items[i];
-        item.top = offset;
-        offset = item.height + this._gap;
+        const item = items[i];
+        const oldTop = item.top;
+        const newTop = offset;
+        const hasChanged = newTop !== oldTop;
+
+        if (hasChanged) {
+          item.top = newTop;
+          isDirty = true;
+        }
+
+        offset += item.height + this._gap;
       }
     }
 
-    this._items.transformValue((items) => items);
+    if (isDirty) {
+      this._isDirty.setValue(true);
+    }
   }
 
-  reflowColumnFromItemIndex(fromIndex: number) {
-    const columnLength = this._columnLength;
-    const itemsLength = this._items.getValue.length;
-    let offset = this._gap;
+  getLeftOffsetForColumn(columnIndex: number) {
+    return this._columnOffsets[columnIndex];
+  }
 
-    for (let i = fromIndex; i < itemsLength; i += columnLength) {
-      const item = this._items[i];
-      item.top = offset;
-      offset = item.height + this._gap;
-    }
+  getColumnWidth() {
+    return this._columnWidth;
+  }
 
-    this._items.transformValue((items) => items);
+  getItemByIndex(index: number) {
+    return this._items[index];
+  }
+
+  getColumnLength() {
+    return this._columnLength;
   }
 
   dispose() {
-    this._items.transformValue((items) => {
-      items.length = 0;
-      return items;
-    });
-
+    this._items.length = 0;
     this._itemFactory.releaseAll();
   }
 }

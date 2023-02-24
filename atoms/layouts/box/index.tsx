@@ -115,7 +115,6 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     <As
       ref={forkedRef}
       style={{
-        ...style,
         position: "relative",
         width: finalWidth,
         height: finalHeight,
@@ -124,6 +123,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
         zIndex: "0",
         transform: "translate3d(0,0,0)",
         boxShadow: shadow,
+        ...style,
         ...otherStyles,
       }}
       className={className}
