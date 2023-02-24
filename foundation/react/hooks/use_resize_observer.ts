@@ -9,11 +9,11 @@ interface Size {
 
 class ResizeObserverRegistry {
   private _resizeObserver: ResizeObserver;
-  private _registeredElements: WeakMap<Element, ResizeHandler>;
+  private _elementHandlers: WeakMap<Element, ResizeHandler[]>;
   private _elementSizes: WeakMap<Element, Size>;
 
   constructor() {
-    this._registeredElements = new WeakMap();
+    this._elementHandlers = new WeakMap();
     this._elementSizes = new WeakMap();
 
     this._resizeObserver = new ResizeObserver((entries) => {
@@ -27,13 +27,13 @@ class ResizeObserverRegistry {
           const hasWidthChanged = newWidth !== size.width;
           const hasSizeChanged = hasHeightChanged || hasWidthChanged;
 
-          const handler = this._registeredElements.get(entry.target);
+          const handlers = this._elementHandlers.get(entry.target);
 
           size.width = newWidth;
           size.height = newHeight;
 
-          if (hasSizeChanged && handler != null) {
-            handler(entry);
+          if (hasSizeChanged && handlers != null) {
+            handlers.forEach((handler) => handler(entry));
           }
         }
       });
@@ -41,14 +41,26 @@ class ResizeObserverRegistry {
   }
 
   register(element: Element, handler: ResizeHandler) {
-    // TODO: This needs to increment just in case multiple parties are observing to the same element.
-    this._registeredElements.set(element, handler);
     this._elementSizes.set(element, { width: 0, height: 0 });
     this._resizeObserver.observe(element);
+
+    const handlers = this.getElementHandlers(element);
+    handlers.push(handler);
+  }
+
+  getElementHandlers(element: Element) {
+    let handlers = this._elementHandlers.get(element);
+
+    if (handlers == null) {
+      handlers = [];
+      this._elementHandlers.set(element, handlers);
+    }
+
+    return handlers as ResizeHandler[];
   }
 
   unregister(element: Element) {
-    this._registeredElements.delete(element);
+    this._elementHandlers.delete(element);
     this._elementSizes.delete(element);
     this._resizeObserver.unobserve(element);
   }
