@@ -1,6 +1,5 @@
 import { useAsyncValue } from "ergo-hex";
 import React, { useLayoutEffect, useState } from "react";
-import { useForkRef } from "../../../foundation/react/hooks/use_fork_ref";
 import { useResizeObserver } from "../../../foundation/react/hooks/use_resize_observer";
 import { GridItem } from "./grid_item";
 import { MasonryLayoutEngine } from "./masonry_layout_engine";
@@ -23,13 +22,13 @@ export interface GridProps {
 export const Grid = React.forwardRef(function Grid(
   {
     as = "div",
-    gap=0,
+    gap = 0,
     minColumnWidth = 100,
     minWidth,
     width = "100%",
     maxWidth,
     minHeight,
-    height = "auto",
+    height = "100%",
     maxHeight,
     children = [],
     style,
@@ -46,6 +45,8 @@ export const Grid = React.forwardRef(function Grid(
   const As = as as React.ElementType;
   const gridStyles: React.CSSProperties = {
     position: "relative",
+    overflowY: "auto",
+    overflowX: "hidden",
     minWidth,
     width,
     maxWidth,
@@ -54,11 +55,9 @@ export const Grid = React.forwardRef(function Grid(
     maxHeight,
   };
 
-  const resizeRef = useResizeObserver((entry) => {
+  const resizeRef = useResizeObserver<HTMLDivElement>((entry) => {
     masonryLayoutEngine.setViewportWidth(entry.borderBoxSize[0].inlineSize);
   });
-
-  const forkedRef = useForkRef(ref, resizeRef);
 
   useLayoutEffect(() => {
     masonryLayoutEngine.setMinColumnWidth(minColumnWidth);
@@ -72,12 +71,18 @@ export const Grid = React.forwardRef(function Grid(
     masonryLayoutEngine.setLength(childrenLength);
   }, [childrenLength]);
 
+  useLayoutEffect(()=>{
+    masonryLayoutEngine.reflow();
+  }, []);
+
+  const contentStyle = {
+    height: `${masonryLayoutEngine.getHeight()}px`,
+    width: "100%",
+  };
+
   return (
-    <As
-      ref={forkedRef}
-      style={{ ...style, ...gridStyles }}
-      className={className}
-    >
+    <As ref={ref} style={{ ...style, ...gridStyles }} className={className}>
+      <div ref={resizeRef} style={contentStyle}></div>
       {children.map((child, index) => {
         return (
           <GridItem

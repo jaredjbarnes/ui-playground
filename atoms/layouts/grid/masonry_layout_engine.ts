@@ -54,6 +54,7 @@ export class ItemFactory {
 
 export class MasonryLayoutEngine {
   private _gap: number;
+  private _height: number;
   private _minColumnWidth: number;
   private _columnWidth: number;
   private _columnOffsets: number[];
@@ -93,6 +94,7 @@ export class MasonryLayoutEngine {
 
   setGap(value: number) {
     this._gap = value;
+    this.reflow();
   }
 
   private _updateItems(length: number) {
@@ -155,6 +157,7 @@ export class MasonryLayoutEngine {
   }
 
   reflow() {
+    let height = 0;
     const items = this._items;
     const columnLength = this._columnLength;
     const itemsLength = items.length;
@@ -175,8 +178,14 @@ export class MasonryLayoutEngine {
         }
 
         offset += item.height + this._gap;
+
+        if (offset > height){
+          height = offset;
+        }
       }
     }
+
+    this._height = height;
 
     if (isDirty) {
       this._isDirty.setValue(true);
@@ -197,6 +206,10 @@ export class MasonryLayoutEngine {
 
   getColumnLength() {
     return this._columnLength;
+  }
+
+  getHeight(){
+    return this._height;
   }
 
   dispose() {

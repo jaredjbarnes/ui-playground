@@ -68,8 +68,8 @@ class ResizeObserverRegistry {
 
 const resizeObserverRegistry = new ResizeObserverRegistry();
 
-export function useResizeObserver(resizeHandler: ResizeHandler) {
-  const ref = useRef<Element | null>(null);
+export function useResizeObserver<T extends Element>(resizeHandler: ResizeHandler) {
+  const ref = useRef<T | null>(null);
 
   useLayoutEffect(() => {
     const element = ref.current;

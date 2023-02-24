@@ -19,6 +19,7 @@ export function GridExample() {
       <Box background="blue" width="100%" height="50px"></Box>
       <Box background="pink" width="100%" height="75px"></Box>
       <Box background="green" width="100%" height="150px"></Box>
+      <Box background="purple" width="100%" height="300px"></Box>
     </Grid>
   );
 }
