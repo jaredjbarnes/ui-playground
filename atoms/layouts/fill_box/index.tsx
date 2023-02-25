@@ -49,7 +49,7 @@ export const FillBox = React.forwardRef(function FillBox(
   return (
     <div
       ref={forkedRef}
-      style={{ position: "relative", boxSizing: "border-box" }}
+      style={{ position: "relative", boxSizing: "border-box", overflow: "" }}
     >
       <div style={contentStyle}>{children}</div>
     </div>

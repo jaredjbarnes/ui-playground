@@ -151,7 +151,7 @@ export function Example() {
             building... webpack built preview 4249f20bf181a7af0810 in 2962ms
           </Box>
           <FillBox>
-            <Grid gap={10}>
+            <Grid gap={10} scroll>
               <Box
                 background="red"
                 width="100%"

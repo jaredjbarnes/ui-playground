@@ -45,7 +45,7 @@ export const Grid = React.forwardRef(function Grid(
   const As = as as React.ElementType;
   const gridStyles: React.CSSProperties = {
     position: "relative",
-    overflowY: "auto",
+    overflowY: "scroll",
     overflowX: "hidden",
     minWidth,
     width,
@@ -71,7 +71,7 @@ export const Grid = React.forwardRef(function Grid(
     masonryLayoutEngine.setLength(childrenLength);
   }, [childrenLength]);
 
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     masonryLayoutEngine.reflow();
   }, []);
 
