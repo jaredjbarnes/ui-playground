@@ -1,9 +1,27 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { useForkRef } from "../../../foundation/react/hooks/use_fork_ref";
 
-export interface FillBoxProps {
-  children?: React.ReactNode;
+export interface FlexBoxProps {
   fillSpaceWeight?: number;
+  padding?: React.CSSProperties["padding"];
+  boxShadow?: React.CSSProperties["boxShadow"];
+  background?: React.CSSProperties["background"];
+  backgroundColor?: React.CSSProperties["backgroundColor"];
+  backgroundSize?: React.CSSProperties["backgroundSize"];
+  backgroundImage?: React.CSSProperties["backgroundImage"];
+  backgroundRepeat?: React.CSSProperties["backgroundRepeat"];
+  border?: React.CSSProperties["border"];
+  borderRadius?: React.CSSProperties["borderRadius"];
+  borderTop?: React.CSSProperties["borderTop"];
+  borderRight?: React.CSSProperties["borderRight"];
+  borderBottom?: React.CSSProperties["borderBottom"];
+  borderLeft?: React.CSSProperties["borderLeft"];
+  opacity?: React.CSSProperties["opacity"];
+  zIndex?: React.CSSProperties["zIndex"];
+  transform?: React.CSSProperties["transform"];
+  style?: React.CSSProperties;
+  className?: string;
+  children?: React.ReactNode;
 }
 
 const contentStyle: React.CSSProperties = {
@@ -15,8 +33,8 @@ const contentStyle: React.CSSProperties = {
   overflow: "auto",
 };
 
-export const FillBox = React.forwardRef(function FillBox(
-  { children, fillSpaceWeight = 1 }: FillBoxProps,
+export const FlexBox = React.forwardRef(function FillBox(
+  { children, fillSpaceWeight = 1, ...style }: FlexBoxProps,
   ref: React.ForwardedRef<HTMLElement>
 ) {
   const fillBoxRef = useRef<HTMLDivElement | null>(null);
@@ -49,9 +67,13 @@ export const FillBox = React.forwardRef(function FillBox(
   return (
     <div
       ref={forkedRef}
-      style={{ position: "relative", boxSizing: "border-box", overflow: "" }}
+      style={{
+        position: "relative",
+        boxSizing: "border-box",
+        overflow: "hidden",
+      }}
     >
-      <div style={contentStyle}>{children}</div>
+      <div style={{ ...style, ...contentStyle }}>{children}</div>
     </div>
   );
 });

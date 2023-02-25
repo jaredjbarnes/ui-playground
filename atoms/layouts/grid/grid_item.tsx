@@ -31,7 +31,7 @@ export function GridItem({ child, index, masonryLayoutEngine }: GridItemProps) {
     left: "0",
     width: `${masonryLayoutEngine.getColumnWidth()}px`,
     transform: `translate(${masonryLayoutEngine.getLeftOffsetForColumn(
-      columnIndex
+      item.column
     )}px, ${item.top}px)`,
   };
 

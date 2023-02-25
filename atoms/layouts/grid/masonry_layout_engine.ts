@@ -3,6 +3,7 @@ import { ObservableValue, ReadonlyObservableValue } from "ergo-hex";
 interface Item {
   top: number;
   height: number;
+  column: number;
   isVisible: boolean;
 }
 
@@ -17,12 +18,14 @@ export class ItemFactory {
     if (availableInstances.length === 0) {
       instance = {
         top: 0,
+        column: 0,
         height: 0,
-        isVisible: false
+        isVisible: false,
       };
     } else {
       instance = availableInstances.pop() as Item;
       instance.top = 0;
+      instance.column = 0;
       instance.height = 0;
       instance.isVisible = false;
     }
@@ -157,39 +160,39 @@ export class MasonryLayoutEngine {
   }
 
   reflow() {
-    let height = 0;
     const items = this._items;
-    const columnLength = this._columnLength;
-    const itemsLength = items.length;
-    let isDirty = false;
+    const columnsOffset: number[] = [];
+    columnsOffset.length = this._columnLength;
+    columnsOffset.fill(this._gap);
 
-    for (let column = 0; column < columnLength; column++) {
-      let offset = this._gap;
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const shortestColumnIndex = this._findSmallestIndex(columnsOffset);
+      const offset = columnsOffset[shortestColumnIndex];
 
-      for (let i = column; i < itemsLength; i += columnLength) {
-        const item = items[i];
-        const oldTop = item.top;
-        const newTop = offset;
-        const hasChanged = newTop !== oldTop;
+      item.top = offset;
+      item.column = shortestColumnIndex;
 
-        if (hasChanged) {
-          item.top = newTop;
-          isDirty = true;
-        }
+      columnsOffset[shortestColumnIndex] += item.height + this._gap;
+    }
 
-        offset += item.height + this._gap;
+    this._height = Math.max(...columnsOffset) + this._gap;
+    this._isDirty.setValue(true);
+  }
 
-        if (offset > height){
-          height = offset;
-        }
+  private _findSmallestIndex(array: number[]) {
+    let index = 0;
+    let currentValue = Infinity;
+
+    for (let i = 0; i < array.length; i++) {
+      const value = array[i];
+      if (value < currentValue) {
+        index = i;
+        currentValue = value;
       }
     }
 
-    this._height = height;
-
-    if (isDirty) {
-      this._isDirty.setValue(true);
-    }
+    return index;
   }
 
   getLeftOffsetForColumn(columnIndex: number) {
@@ -208,7 +211,7 @@ export class MasonryLayoutEngine {
     return this._columnLength;
   }
 
-  getHeight(){
+  getHeight() {
     return this._height;
   }
 

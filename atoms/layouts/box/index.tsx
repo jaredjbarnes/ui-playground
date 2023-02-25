@@ -9,7 +9,6 @@ export interface BoxProps {
   as?: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
-  shadow?: React.CSSProperties["boxShadow"];
   scroll?: boolean;
   enableResizeOnTop?: boolean;
   enableResizeOnRight?: boolean;
@@ -22,6 +21,7 @@ export interface BoxProps {
   maxWidth?: React.CSSProperties["maxWidth"];
   maxHeight?: React.CSSProperties["maxHeight"];
   padding?: React.CSSProperties["padding"];
+  boxShadow?: React.CSSProperties["boxShadow"];
   background?: React.CSSProperties["background"];
   backgroundColor?: React.CSSProperties["backgroundColor"];
   backgroundSize?: React.CSSProperties["backgroundSize"];
@@ -59,7 +59,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     maxHeight,
     fullHeight = false,
     fullWidth = false,
-    shadow,
+    boxShadow,
     scroll = false,
     style,
     className,
@@ -115,7 +115,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
         boxSizing: "border-box",
         zIndex: "0",
         transform: "translate3d(0,0,0)",
-        boxShadow: shadow,
+        boxShadow,
         ...style,
         ...otherStyles,
       }}

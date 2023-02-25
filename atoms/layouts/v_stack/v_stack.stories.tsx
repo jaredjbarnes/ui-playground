@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "../box";
-import { FillBox } from "../fill_box";
+import { FlexBox } from "../flex_box";
 import { Grid } from "../grid";
 import { HStack } from "../h_stack";
 import { Spacer } from "../spacer";
@@ -88,7 +88,7 @@ export function HeaderBodyFooter() {
           <Spacer width="8px" />
         </HStack>
       </Box>
-      <FillBox>
+      <FlexBox>
         <fieldset>
           <legend>Title</legend>
           webpack built preview 26b37f8164acc71e3394 in 2953ms webpack
@@ -105,7 +105,7 @@ export function HeaderBodyFooter() {
           1818ms webpack building... webpack built preview 4249f20bf181a7af0810
           in 2962ms
         </fieldset>
-      </FillBox>
+      </FlexBox>
       <Box fullWidth backgroundColor="blue" height="40px" />
     </VStack>
   );
@@ -115,7 +115,7 @@ export function Example() {
   return (
     <VStack>
       <Box height={"30px"} minHeight="30px" fullWidth background={"grey"}></Box>
-      <FillBox>
+      <FlexBox>
         <HStack>
           <Box
             background={"white"}
@@ -150,8 +150,8 @@ export function Example() {
             webpack built preview 0cd9b55ffc1d35c316ce in 1818ms webpack
             building... webpack built preview 4249f20bf181a7af0810 in 2962ms
           </Box>
-          <FillBox>
-            <Grid gap={10} scroll>
+          <FlexBox background={"grey"}>
+            <Grid gap={10}>
               <Box
                 background="red"
                 width="100%"
@@ -203,9 +203,9 @@ export function Example() {
               <Box background="green" width="100%" height="150px"></Box>
               <Box background="purple" width="100%" height="300px"></Box>
             </Grid>
-          </FillBox>
+          </FlexBox>
         </HStack>
-      </FillBox>
+      </FlexBox>
       <Box height={"30px"} minHeight="30px" background={"grey"} fullWidth></Box>
     </VStack>
   );
