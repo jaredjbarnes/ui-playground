@@ -9,9 +9,9 @@ export default {
 
 export function GridExample() {
   return (
-    <Grid minColumnWidth={200} gap={10}>
-      <Box background="red" width="100%" height="100px"></Box>
-      <Box background="orange" width="100%" height="200px"></Box>
+    <Grid minColumnWidth={200} gap={20}>
+      <Box background="red" width="100%" height="100px" enableResizeOnBottom></Box>
+      <Box background="orange" width="100%" height="200px" enableResizeOnBottom></Box>
       <Box background="teal" width="100%" height="auto" padding={"10px"}>
         Here is some auto height, I don't know if this will work, but lets find
         out.

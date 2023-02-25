@@ -12,7 +12,7 @@ export function AsExample() {
   return (
     <HStack height="auto">
       <input id="1" type="radio" checked name="First" />
-      <Box fillSpace as="label">
+      <Box fillHorizontalSpace as="label">
         First
       </Box>
     </HStack>
