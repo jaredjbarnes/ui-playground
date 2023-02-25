@@ -20,7 +20,6 @@ export function GridItem({ child, index, masonryLayoutEngine }: GridItemProps) {
     }
   });
 
-  const columnIndex = index % masonryLayoutEngine.getColumnLength();
   const forkedRef = useForkRef(ref, child.props.ref);
   const item = masonryLayoutEngine.getItemByIndex(index);
   const style: React.CSSProperties = {
