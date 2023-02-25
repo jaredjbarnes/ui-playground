@@ -55,8 +55,8 @@ export const Grid = React.forwardRef(function Grid(
     maxHeight,
   };
 
-  const resizeRef = useResizeObserver<HTMLDivElement>((entry) => {
-    masonryLayoutEngine.setViewportWidth(entry.borderBoxSize[0].inlineSize);
+  const resizeRef = useResizeObserver<HTMLDivElement>((width) => {
+    masonryLayoutEngine.setViewportWidth(width);
   });
 
   useLayoutEffect(() => {

@@ -10,9 +10,8 @@ export interface GridItemProps {
 }
 
 export function GridItem({ child, index, masonryLayoutEngine }: GridItemProps) {
-  const ref = useResizeObserver((entry) => {
+  const ref = useResizeObserver((_, height) => {
     const item = masonryLayoutEngine.getItemByIndex(index);
-    const height = entry.borderBoxSize[0].blockSize;
     const currentHeight = item.height;
     const isHeightDifferent = currentHeight != height;
 

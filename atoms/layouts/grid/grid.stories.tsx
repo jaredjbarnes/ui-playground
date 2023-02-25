@@ -9,7 +9,7 @@ export default {
 
 export function GridExample() {
   return (
-    <Grid columnWidth={200} gap={20}>
+    <Grid columnWidth={150} gap={20}>
       <Box background="red" width="100%" height="100px" enableResizeOnBottom></Box>
       <Box background="orange" width="100%" height="200px" enableResizeOnBottom></Box>
       <Box background="teal" width="100%" height="auto" padding={"10px"}>

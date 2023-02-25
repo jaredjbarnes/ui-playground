@@ -1,6 +1,10 @@
 import { useLayoutEffect, useRef } from "react";
 
-type ResizeHandler = (entry: ResizeObserverEntry) => void;
+type ResizeHandler = (
+  newWidth: number,
+  newHeight: number,
+  entry: ResizeObserverEntry
+) => void;
 
 interface Size {
   width: number;
@@ -17,7 +21,7 @@ class ResizeObserverRegistry {
     this._elementSizes = new WeakMap();
 
     this._resizeObserver = new ResizeObserver((entries) => {
-      entries.forEach((entry) => {
+      for (let entry of entries) {
         const size = this._elementSizes.get(entry.target);
         if (size != null) {
           const newHeight = entry.borderBoxSize[0].blockSize;
@@ -27,16 +31,15 @@ class ResizeObserverRegistry {
           const hasWidthChanged = newWidth !== size.width;
           const hasSizeChanged = hasHeightChanged || hasWidthChanged;
 
-          const handlers = this._elementHandlers.get(entry.target);
-
           size.width = newWidth;
           size.height = newHeight;
 
-          if (hasSizeChanged && handlers != null) {
-            handlers.forEach((handler) => handler(entry));
+          if (hasSizeChanged) {
+            const handlers = this._elementHandlers.get(entry.target);
+            handlers?.forEach((handler) => handler(newWidth, newHeight, entry));
           }
         }
-      });
+      }
     });
   }
 
@@ -68,7 +71,9 @@ class ResizeObserverRegistry {
 
 const resizeObserverRegistry = new ResizeObserverRegistry();
 
-export function useResizeObserver<T extends Element>(resizeHandler: ResizeHandler) {
+export function useResizeObserver<T extends Element>(
+  resizeHandler: ResizeHandler
+) {
   const ref = useRef<T | null>(null);
 
   useLayoutEffect(() => {
