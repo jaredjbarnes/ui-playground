@@ -14,6 +14,7 @@ export interface GridProps {
   minHeight?: React.CSSProperties["minHeight"];
   height?: React.CSSProperties["height"];
   maxHeight?: React.CSSProperties["maxHeight"];
+  animate?: boolean;
   children?: React.ReactElement[];
   style?: React.CSSProperties;
   className?: string;
@@ -29,6 +30,7 @@ export const Grid = React.forwardRef(function Grid(
     maxWidth,
     minHeight,
     height = "100%",
+    animate = false,
     maxHeight,
     children = [],
     style,
@@ -89,6 +91,7 @@ export const Grid = React.forwardRef(function Grid(
             key={index}
             child={child}
             index={index}
+            animate={animate}
             masonryLayoutEngine={masonryLayoutEngine}
           />
         );

@@ -151,7 +151,7 @@ export function Example() {
             building... webpack built preview 4249f20bf181a7af0810 in 2962ms
           </Box>
           <FlexBox background={"grey"}>
-            <Grid columnWidth={150} gap={10}>
+            <Grid columnWidth={200} gap={10}>
               <Box
                 background="red"
                 width="100%"
