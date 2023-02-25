@@ -151,57 +151,303 @@ export function Example() {
             building... webpack built preview 4249f20bf181a7af0810 in 2962ms
           </Box>
           <FlexBox background={"grey"}>
-            <Grid gap={10}>
+            <Grid columnWidth={300} gap={10}>
               <Box
                 background="red"
                 width="100%"
                 height="100px"
                 enableResizeOnBottom
-              ></Box>
+              >
+                1
+              </Box>
               <Box
                 background="orange"
                 width="100%"
                 height="200px"
                 enableResizeOnBottom
-              ></Box>
+              >
+                2
+              </Box>
               <Box
                 background="teal"
                 width="100%"
                 height="auto"
                 padding={"10px"}
               >
-                Here is some auto height, I don't know if this will work, but
-                lets find out.
+                3 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
               </Box>
-              <Box background="blue" width="100%" height="50px"></Box>
-              <Box background="pink" width="100%" height="75px"></Box>
-              <Box background="green" width="100%" height="150px"></Box>
-              <Box background="purple" width="100%" height="300px"></Box>
+              <Box background="blue" width="100%" height="50px">
+                4
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                5
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                6
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                7
+              </Box>
               <Box
                 background="red"
                 width="100%"
                 height="100px"
                 enableResizeOnBottom
-              ></Box>
+              >
+                8
+              </Box>
               <Box
                 background="orange"
                 width="100%"
                 height="200px"
                 enableResizeOnBottom
-              ></Box>
+              >
+                9
+              </Box>
               <Box
                 background="teal"
                 width="100%"
                 height="auto"
                 padding={"10px"}
               >
-                Here is some auto height, I don't know if this will work, but
-                lets find out.
+                10 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
               </Box>
-              <Box background="blue" width="100%" height="50px"></Box>
-              <Box background="pink" width="100%" height="75px"></Box>
-              <Box background="green" width="100%" height="150px"></Box>
-              <Box background="purple" width="100%" height="300px"></Box>
+              <Box background="blue" width="100%" height="50px">
+                11
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                12
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                13
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                14
+              </Box>
+              <Box
+                background="red"
+                width="100%"
+                height="100px"
+                enableResizeOnBottom
+              >
+                1
+              </Box>
+              <Box
+                background="orange"
+                width="100%"
+                height="200px"
+                enableResizeOnBottom
+              >
+                2
+              </Box>
+              <Box
+                background="teal"
+                width="100%"
+                height="auto"
+                padding={"10px"}
+              >
+                3 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
+              </Box>
+              <Box background="blue" width="100%" height="50px">
+                4
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                5
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                6
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                7
+              </Box>
+              <Box
+                background="red"
+                width="100%"
+                height="100px"
+                enableResizeOnBottom
+              >
+                8
+              </Box>
+              <Box
+                background="orange"
+                width="100%"
+                height="200px"
+                enableResizeOnBottom
+              >
+                9
+              </Box>
+              <Box
+                background="teal"
+                width="100%"
+                height="auto"
+                padding={"10px"}
+              >
+                10 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
+              </Box>
+              <Box background="blue" width="100%" height="50px">
+                11
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                12
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                13
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                14
+              </Box>
+              <Box
+                background="red"
+                width="100%"
+                height="100px"
+                enableResizeOnBottom
+              >
+                1
+              </Box>
+              <Box
+                background="orange"
+                width="100%"
+                height="200px"
+                enableResizeOnBottom
+              >
+                2
+              </Box>
+              <Box
+                background="teal"
+                width="100%"
+                height="auto"
+                padding={"10px"}
+              >
+                3 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
+              </Box>
+              <Box background="blue" width="100%" height="50px">
+                4
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                5
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                6
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                7
+              </Box>
+              <Box
+                background="red"
+                width="100%"
+                height="100px"
+                enableResizeOnBottom
+              >
+                8
+              </Box>
+              <Box
+                background="orange"
+                width="100%"
+                height="200px"
+                enableResizeOnBottom
+              >
+                9
+              </Box>
+              <Box
+                background="teal"
+                width="100%"
+                height="auto"
+                padding={"10px"}
+              >
+                10 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
+              </Box>
+              <Box background="blue" width="100%" height="50px">
+                11
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                12
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                13
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                14
+              </Box>
+              <Box
+                background="red"
+                width="100%"
+                height="100px"
+                enableResizeOnBottom
+              >
+                1
+              </Box>
+              <Box
+                background="orange"
+                width="100%"
+                height="200px"
+                enableResizeOnBottom
+              >
+                2
+              </Box>
+              <Box
+                background="teal"
+                width="100%"
+                height="auto"
+                padding={"10px"}
+              >
+                3 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
+              </Box>
+              <Box background="blue" width="100%" height="50px">
+                4
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                5
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                6
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                7
+              </Box>
+              <Box
+                background="red"
+                width="100%"
+                height="100px"
+                enableResizeOnBottom
+              >
+                8
+              </Box>
+              <Box
+                background="orange"
+                width="100%"
+                height="200px"
+                enableResizeOnBottom
+              >
+                9
+              </Box>
+              <Box
+                background="teal"
+                width="100%"
+                height="auto"
+                padding={"10px"}
+              >
+                10 -- Here is some auto height, I don't know if this will work,
+                but lets find out.
+              </Box>
+              <Box background="blue" width="100%" height="50px">
+                11
+              </Box>
+              <Box background="pink" width="100%" height="75px">
+                12
+              </Box>
+              <Box background="green" width="100%" height="150px">
+                13
+              </Box>
+              <Box background="purple" width="100%" height="300px">
+                14
+              </Box>
             </Grid>
           </FlexBox>
         </HStack>

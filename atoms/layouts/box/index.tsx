@@ -82,19 +82,19 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   const forkedRef = useForkRef(ref, boxRef);
 
   if (enableResizeOnTop) {
-    handles.push(<TopResizeHandle targetRef={boxRef} />);
+    handles.push(<TopResizeHandle key={1} targetRef={boxRef} />);
   }
 
   if (enableResizeOnBottom) {
-    handles.push(<BottomResizeHandle targetRef={boxRef} />);
+    handles.push(<BottomResizeHandle key={2} targetRef={boxRef} />);
   }
 
   if (enableResizeOnLeft) {
-    handles.push(<LeftResizeHandle targetRef={boxRef} />);
+    handles.push(<LeftResizeHandle key={3} targetRef={boxRef} />);
   }
 
   if (enableResizeOnRight) {
-    handles.push(<RightResizeHandle targetRef={boxRef} />);
+    handles.push(<RightResizeHandle key={4} targetRef={boxRef} />);
   }
 
   if (scroll) {

@@ -6,7 +6,7 @@ import { MasonryLayoutEngine } from "./masonry_layout_engine";
 
 export interface GridProps {
   gap?: number;
-  minColumnWidth?: number;
+  columnWidth?: number;
   as?: string;
   minWidth?: React.CSSProperties["minWidth"];
   width?: React.CSSProperties["width"];
@@ -23,7 +23,7 @@ export const Grid = React.forwardRef(function Grid(
   {
     as = "div",
     gap = 0,
-    minColumnWidth = 100,
+    columnWidth = 100,
     minWidth,
     width = "100%",
     maxWidth,
@@ -60,8 +60,8 @@ export const Grid = React.forwardRef(function Grid(
   });
 
   useLayoutEffect(() => {
-    masonryLayoutEngine.setMinColumnWidth(minColumnWidth);
-  }, [minColumnWidth]);
+    masonryLayoutEngine.setMinColumnWidth(columnWidth);
+  }, [columnWidth]);
 
   useLayoutEffect(() => {
     masonryLayoutEngine.setGap(gap);
