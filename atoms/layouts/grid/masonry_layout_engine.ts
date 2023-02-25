@@ -176,7 +176,7 @@ export class MasonryLayoutEngine {
       columnsOffset[shortestColumnIndex] += item.height + this._gap;
     }
 
-    this._height = Math.max(...columnsOffset) + this._gap;
+    this._height = Math.max(...columnsOffset);
     this._isDirty.setValue(true);
   }
 
