@@ -14,49 +14,49 @@ export default {
 export const Primary = () => (
   <VStack verticalAlignment="center">
     <Box
-      backgroundColor="red"
+      background="red"
       borderRadius="10px"
       width="100px"
       height="100px"
     />
     <Spacer height="10px" />
     <Box
-      backgroundColor="orange"
+      background="orange"
       borderRadius="10px"
       width="100px"
       height="100px"
     />
     <Spacer height="10px" />
     <Box
-      backgroundColor="yellow"
+      background="yellow"
       borderRadius="10px"
       width="100px"
       height="100px"
     />
     <Spacer height="10px" />
     <Box
-      backgroundColor="green"
+      background="green"
       borderRadius="10px"
       width="100px"
       height="100px"
     />
     <Spacer height="10px" />
     <Box
-      backgroundColor="blue"
+      background="blue"
       borderRadius="10px"
       width="100px"
       height="100px"
     />
     <Spacer height="10px" />
     <Box
-      backgroundColor="magenta"
+      background="magenta"
       borderRadius="10px"
       width="100px"
       height="100px"
     />
     <Spacer height="10px" />
     <Box
-      backgroundColor="indigo"
+      background="indigo"
       borderRadius="10px"
       width="100px"
       height="100px"
@@ -71,7 +71,7 @@ export function HeaderBodyFooter() {
         fullWidth
         enableResizeOnTop
         enableResizeOnBottom
-        backgroundColor="red"
+        background="red"
         height="20%"
         minHeight="40px"
       >
@@ -81,7 +81,7 @@ export function HeaderBodyFooter() {
           <Spacer />
           <Box
             borderRadius="50%"
-            backgroundColor="white"
+            background="white"
             width="20px"
             height="20px"
           />
@@ -106,7 +106,7 @@ export function HeaderBodyFooter() {
           in 2962ms
         </fieldset>
       </FlexBox>
-      <Box fullWidth backgroundColor="blue" height="40px" />
+      <Box fullWidth background="blue" height="40px" />
     </VStack>
   );
 }

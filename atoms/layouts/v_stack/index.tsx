@@ -1,4 +1,5 @@
 import React, { HTMLAttributes } from "react";
+import { checkAllValuesForAuto } from "../../../utils/stack_utils";
 
 const alignmentMap = {
   start: "flex-start",
@@ -45,6 +46,8 @@ export const VStack = React.forwardRef(function VStack(
   }: VStackProps,
   ref: React.Ref<HTMLElement>
 ) {
+  checkAllValuesForAuto(minWidth, width, maxWidth);
+
   const As = as as React.ElementType;
 
   const propertyDrivenStyles: React.CSSProperties = {

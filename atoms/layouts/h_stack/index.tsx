@@ -1,4 +1,5 @@
 import React, { HTMLAttributes } from "react";
+import { checkAllValuesForAuto } from "../../../utils/stack_utils";
 
 const justifyContentMap = {
   start: "flex-start",
@@ -18,13 +19,13 @@ export type VerticalAlignment = keyof typeof alignItemsMap;
 export interface HStackProps extends HTMLAttributes<HTMLElement> {
   horizontalAlignment?: HorizontalAlignment;
   verticalAlignment?: VerticalAlignment;
-  minWidth?: React.CSSProperties["minWidth"];
-  width?: React.CSSProperties["width"];
-  maxWidth?: React.CSSProperties["maxWidth"];
-  minHeight?: React.CSSProperties["minHeight"];
-  height?: React.CSSProperties["height"];
-  maxHeight?: React.CSSProperties["maxHeight"];
-  zIndex?: React.CSSProperties["zIndex"];
+  minWidth?: string;
+  width?: string;
+  maxWidth?: string;
+  minHeight?: string;
+  height?: string;
+  maxHeight?: string;
+  zIndex?: number;
   as?: string;
   children?: React.ReactNode;
   inline?: boolean;
@@ -52,6 +53,9 @@ export const HStack = React.forwardRef(function HStack(
   }: HStackProps,
   ref: React.Ref<HTMLElement>
 ) {
+
+  checkAllValuesForAuto(minHeight, height, maxHeight);
+  
   const As = as as React.ElementType;
 
   const propertyDrivenStyles: React.CSSProperties = {

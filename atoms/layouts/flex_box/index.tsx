@@ -25,35 +25,21 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
 
-const contentStyle: React.CSSProperties = {
-  position: "absolute",
-  top: "0px",
-  left: "0px",
-  bottom: "0px",
-  right: "0px",
-};
-
 export const FlexBox = React.forwardRef(function FillBox(
   {
     scroll = false,
     children,
     fillSpaceWeight = 1,
-    style,
+    style = {},
     className,
     padding,
     boxShadow,
     background,
-    backgroundColor,
-    backgroundSize,
-    backgroundImage,
-    backgroundRepeat,
-    border,
     borderRadius,
-    borderRight,
-    borderBottom,
-    borderLeft,
+    border,
     opacity,
     transform,
+    ...props
   }: FlexBoxProps,
   ref: React.ForwardedRef<HTMLElement>
 ) {
@@ -97,22 +83,20 @@ export const FlexBox = React.forwardRef(function FillBox(
           padding,
           boxShadow,
           background,
-          backgroundColor,
-          backgroundSize,
-          backgroundImage,
-          backgroundRepeat,
-          border,
           borderRadius,
-          borderRight,
-          borderBottom,
-          borderLeft,
+          border,
           opacity,
           transform,
           ...style,
-          ...contentStyle,
           overflow: scroll ? "auto" : "hidden",
+          position: "absolute",
+          top: "0px",
+          left: "0px",
+          bottom: "0px",
+          right: "0px",
         }}
         className={className}
+        {...props}
       >
         {children}
       </div>

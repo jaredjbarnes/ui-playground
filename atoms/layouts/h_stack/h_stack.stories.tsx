@@ -1,6 +1,6 @@
 import React from "react";
 import { HStack } from "./index";
-import { FlexBox } from "../flex_box";
+import { Spacer } from "../spacer";
 
 export default {
   title: "HStack",
@@ -9,9 +9,11 @@ export default {
 
 export function AsExample() {
   return (
-    <HStack height="auto">
-      <input id="1" type="radio" checked name="First" />
-      <FlexBox>First</FlexBox>
+    <HStack height="40px">
+      <input id="1" type="radio" defaultChecked name="First" style={{marginTop: 0}} />
+      <Spacer width="8px" />
+      <span>First</span>
+      <Spacer />
     </HStack>
   );
 }

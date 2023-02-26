@@ -19,16 +19,8 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   padding?: string;
   boxShadow?: string;
   background?: string;
-  backgroundColor?: string;
-  backgroundSize?: string;
-  backgroundImage?: string;
-  backgroundRepeat?: string;
   border?: string;
   borderRadius?: string;
-  borderTop?: string;
-  borderRight?: string;
-  borderBottom?: string;
-  borderLeft?: string;
   opacity?: number;
   zIndex?: number;
   transform?: string;
@@ -41,12 +33,12 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   enableResizeOnLeft?: boolean;
 }
 
-const content: React.CSSProperties = {
+const contentStyle: React.CSSProperties = {
   position: "absolute",
-  top: "0",
-  bottom: "0",
-  width: "100%",
-  height: "100%",
+  top: "0px",
+  left: "0px",
+  bottom: "0px",
+  right: "0px",
 };
 
 export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
@@ -61,7 +53,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     fullWidth = false,
     boxShadow,
     scroll = false,
-    style,
+    style = {},
     className,
     as = "div",
     children,
@@ -71,25 +63,18 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     enableResizeOnLeft,
     padding,
     background,
-    backgroundColor,
-    backgroundSize,
-    backgroundImage,
-    backgroundRepeat,
     border,
     borderRadius,
-    borderRight,
-    borderBottom,
-    borderLeft,
     opacity,
     transform,
     ...otherProps
   }: BoxProps,
   ref
 ) {
+  const As = as as React.ElementType;
   const handles: React.ReactElement[] = [];
   const finalWidth = fullWidth ? "100%" : width;
   const finalHeight = fullHeight ? "100%" : height;
-  const As = as as React.ElementType;
   const boxRef = useRef<HTMLElement | null>(null);
   const overflow = scroll ? "auto" : "hidden";
   const forkedRef = useForkRef(ref, boxRef);
@@ -111,11 +96,12 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
   }
 
   if (scroll) {
-    children = <div style={{ ...content, overflow }}>{children}</div>;
+    children = <div style={{ ...contentStyle, overflow }}>{children}</div>;
   }
 
   return (
     <As
+      ref={forkedRef}
       style={{
         overflow,
         position: "relative",
@@ -131,21 +117,13 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
         padding,
         boxShadow,
         background,
-        backgroundColor,
-        backgroundSize,
-        backgroundImage,
-        backgroundRepeat,
-        border,
         borderRadius,
-        borderRight,
-        borderBottom,
-        borderLeft,
+        border,
         opacity,
         ...style,
       }}
       className={className}
       {...otherProps}
-      ref={forkedRef}
     >
       {children}
       {handles}

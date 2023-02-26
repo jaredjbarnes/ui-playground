@@ -1,4 +1,5 @@
 import React, { HTMLAttributes } from "react";
+import { checkAllValuesForAuto } from "../../../utils/stack_utils";
 
 const rootStyle: React.CSSProperties = {
   position: "relative",
@@ -52,6 +53,15 @@ export const ZStack = React.forwardRef(function ZStack(
   }: ZStackProps,
   ref: React.Ref<HTMLElement>
 ) {
+  checkAllValuesForAuto(
+    minWidth,
+    width,
+    maxWidth,
+    minHeight,
+    height,
+    maxHeight
+  );
+
   const As = as as React.ElementType;
   const rootDisplay = inline ? "inline-block" : "block";
   let itemAlignItems = "flex-start";
