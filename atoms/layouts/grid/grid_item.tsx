@@ -28,6 +28,8 @@ export function GridItem({
 
   const forkedRef = useForkRef(ref, child.props.ref);
   const item = masonryLayoutEngine.getItemByIndex(index);
+  const originalStyle = child.props.style || {};
+
   const style: React.CSSProperties = {
     position: "absolute",
     opacity: item.isVisible ? 1 : 0,
@@ -44,7 +46,7 @@ export function GridItem({
 
   return React.cloneElement(child, {
     ...child.props,
-    style,
+    style: { ...originalStyle, ...style },
     key: index,
     ref: forkedRef,
   });

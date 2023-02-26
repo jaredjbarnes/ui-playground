@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "../box";
 import { Grid } from "./index";
 
@@ -7,19 +7,57 @@ export default {
   component: Grid,
 };
 
+interface ImageProps {
+  style?: React.CSSProperties;
+  className?: string;
+}
+
+const Image = React.forwardRef(function Image(
+  { style, className }: ImageProps,
+  ref: React.ForwardedRef<HTMLElement>
+) {
+  const [width] = useState(() => {
+    return Math.floor(200 + Math.random() * 200);
+  });
+  const [height] = useState(() => {
+    return Math.floor(200 + Math.random() * 200);
+  });
+
+  return (
+    <Box
+      ref={ref}
+      borderRadius="30px"
+      boxShadow="0px 5px 15px rgba(0,0,0,0.25)"
+      width="100%"
+      height={height}
+      style={style}
+      className={className}
+    >
+      <img
+        src={`https://picsum.photos/${width}/${height}`}
+        style={{
+          objectFit: "cover",
+          width: "100%",
+          height: "100%",
+        }}
+      />
+    </Box>
+  );
+});
+
 export function GridExample() {
   return (
-    <Grid columnWidth={150} gap={20}>
-      <Box background="red" width="100%" height="100px" enableResizeOnBottom></Box>
-      <Box background="orange" width="100%" height="200px" enableResizeOnBottom></Box>
-      <Box background="teal" width="100%" height="auto" padding={"10px"}>
-        Here is some auto height, I don't know if this will work, but lets find
-        out.
-      </Box>
-      <Box background="blue" width="100%" height="50px"></Box>
-      <Box background="pink" width="100%" height="75px"></Box>
-      <Box background="green" width="100%" height="150px"></Box>
-      <Box background="purple" width="100%" height="300px"></Box>
+    <Grid columnWidth={200} gap={20}>
+      <Image />
+      <Image />
+      <Image />
+      <Image />
+      <Image />
+      <Image />
+      <Image />
+      <Image />
+      <Image />
+      <Image />
     </Grid>
   );
 }
