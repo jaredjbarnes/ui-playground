@@ -3,6 +3,7 @@ import { useForkRef } from "../../../foundation/react/hooks/use_fork_ref";
 
 export interface FlexBoxProps {
   fillSpaceWeight?: number;
+  scroll?: boolean;
   padding?: React.CSSProperties["padding"];
   boxShadow?: React.CSSProperties["boxShadow"];
   background?: React.CSSProperties["background"];
@@ -30,11 +31,10 @@ const contentStyle: React.CSSProperties = {
   left: "0px",
   bottom: "0px",
   right: "0px",
-  overflow: "auto",
 };
 
 export const FlexBox = React.forwardRef(function FillBox(
-  { children, fillSpaceWeight = 1, ...style }: FlexBoxProps,
+  { scroll = false, children, fillSpaceWeight = 1, ...style }: FlexBoxProps,
   ref: React.ForwardedRef<HTMLElement>
 ) {
   const fillBoxRef = useRef<HTMLDivElement | null>(null);
@@ -70,10 +70,17 @@ export const FlexBox = React.forwardRef(function FillBox(
       style={{
         position: "relative",
         boxSizing: "border-box",
-        overflow: "hidden",
       }}
     >
-      <div style={{ ...style, ...contentStyle }}>{children}</div>
+      <div
+        style={{
+          ...style,
+          ...contentStyle,
+          overflow: scroll ? "auto" : "hidden",
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 });
