@@ -1,25 +1,25 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { HTMLAttributes, useLayoutEffect, useRef } from "react";
 import { useForkRef } from "../../../foundation/react/hooks/use_fork_ref";
 
-export interface FlexBoxProps {
+export interface FlexBoxProps extends HTMLAttributes<HTMLElement> {
   fillSpaceWeight?: number;
   scroll?: boolean;
-  padding?: React.CSSProperties["padding"];
-  boxShadow?: React.CSSProperties["boxShadow"];
-  background?: React.CSSProperties["background"];
-  backgroundColor?: React.CSSProperties["backgroundColor"];
-  backgroundSize?: React.CSSProperties["backgroundSize"];
-  backgroundImage?: React.CSSProperties["backgroundImage"];
-  backgroundRepeat?: React.CSSProperties["backgroundRepeat"];
-  border?: React.CSSProperties["border"];
-  borderRadius?: React.CSSProperties["borderRadius"];
-  borderTop?: React.CSSProperties["borderTop"];
-  borderRight?: React.CSSProperties["borderRight"];
-  borderBottom?: React.CSSProperties["borderBottom"];
-  borderLeft?: React.CSSProperties["borderLeft"];
-  opacity?: React.CSSProperties["opacity"];
-  zIndex?: React.CSSProperties["zIndex"];
-  transform?: React.CSSProperties["transform"];
+  padding?: string;
+  boxShadow?: string;
+  background?: string;
+  backgroundColor?: string;
+  backgroundSize?: string;
+  backgroundImage?: string;
+  backgroundRepeat?: string;
+  border?: string;
+  borderRadius?: string;
+  borderTop?: string;
+  borderRight?: string;
+  borderBottom?: string;
+  borderLeft?: string;
+  opacity?: number;
+  zIndex?: number;
+  transform?: string;
   style?: React.CSSProperties;
   className?: string;
   children?: React.ReactNode;
@@ -34,7 +34,27 @@ const contentStyle: React.CSSProperties = {
 };
 
 export const FlexBox = React.forwardRef(function FillBox(
-  { scroll = false, children, fillSpaceWeight = 1, ...style }: FlexBoxProps,
+  {
+    scroll = false,
+    children,
+    fillSpaceWeight = 1,
+    style,
+    className,
+    padding,
+    boxShadow,
+    background,
+    backgroundColor,
+    backgroundSize,
+    backgroundImage,
+    backgroundRepeat,
+    border,
+    borderRadius,
+    borderRight,
+    borderBottom,
+    borderLeft,
+    opacity,
+    transform,
+  }: FlexBoxProps,
   ref: React.ForwardedRef<HTMLElement>
 ) {
   const fillBoxRef = useRef<HTMLDivElement | null>(null);
@@ -74,10 +94,25 @@ export const FlexBox = React.forwardRef(function FillBox(
     >
       <div
         style={{
+          padding,
+          boxShadow,
+          background,
+          backgroundColor,
+          backgroundSize,
+          backgroundImage,
+          backgroundRepeat,
+          border,
+          borderRadius,
+          borderRight,
+          borderBottom,
+          borderLeft,
+          opacity,
+          transform,
           ...style,
           ...contentStyle,
           overflow: scroll ? "auto" : "hidden",
         }}
+        className={className}
       >
         {children}
       </div>

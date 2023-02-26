@@ -24,7 +24,7 @@ const buttonStyle = {
   border: "0",
 };
 
-const Image = React.forwardRef(function Image(
+const Card = React.forwardRef(function Image(
   { style, className }: ImageProps,
   ref: React.ForwardedRef<HTMLElement>
 ) {
@@ -49,8 +49,9 @@ const Image = React.forwardRef(function Image(
       ref={ref}
       borderRadius="20px"
       boxShadow="0px 5px 15px rgba(0,0,0,0.25)"
+      backgroundColor="white"
       width="100%"
-      height={height}
+      height={`${height}px`}
       style={style}
       className={className}
       onMouseEnter={enter}
@@ -88,50 +89,50 @@ const Image = React.forwardRef(function Image(
 export function GridExample() {
   return (
     <Grid columnWidth={200} gap={20} animate>
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
-      <Image />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
     </Grid>
   );
 }

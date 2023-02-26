@@ -8,12 +8,14 @@ export interface GridItemProps {
   masonryLayoutEngine: MasonryLayoutEngine;
   child: React.ReactElement;
   animate?: boolean;
+  animationDuration?: number;
 }
 
 export function GridItem({
   child,
   index,
   animate = false,
+  animationDuration = 1000,
   masonryLayoutEngine,
 }: GridItemProps) {
   const ref = useResizeObserver((_, height) => {
@@ -28,6 +30,7 @@ export function GridItem({
 
   const forkedRef = useForkRef(ref, child.props.ref);
   const item = masonryLayoutEngine.getItemByIndex(index);
+  const isVisible = item.isVisible;
   const originalStyle = child.props.style || {};
 
   const style: React.CSSProperties = {
@@ -36,13 +39,25 @@ export function GridItem({
     top: "0",
     left: "0",
     width: `${masonryLayoutEngine.getColumnWidth()}px`,
-    transition: animate
-      ? "transform 1000ms cubic-bezier(.01,.62,.08,1)"
-      : undefined,
     transform: `translate(${masonryLayoutEngine.getLeftOffsetForColumn(
       item.column
     )}px, ${item.top}px)`,
   };
+
+  if (!isVisible) {
+    style.transition = "";
+  }
+
+  useEffect(() => {
+    const element = ref.current as HTMLElement;
+    if (element != null) {
+      if (isVisible) {
+        element.style.transition = animate
+          ? `transform ${animationDuration}ms cubic-bezier(.01,.62,.08,1)`
+          : "";
+      }
+    }
+  }, [isVisible, animate]);
 
   return React.cloneElement(child, {
     ...child.props,

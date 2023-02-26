@@ -10,35 +10,35 @@ export interface BoxProps extends HTMLAttributes<HTMLElement> {
   fullHeight?: boolean;
   fullWidth?: boolean;
   scroll?: boolean;
+  width?: string;
+  height?: string;
+  minWidth?: string;
+  minHeight?: string;
+  maxWidth?: string;
+  maxHeight?: string;
+  padding?: string;
+  boxShadow?: string;
+  background?: string;
+  backgroundColor?: string;
+  backgroundSize?: string;
+  backgroundImage?: string;
+  backgroundRepeat?: string;
+  border?: string;
+  borderRadius?: string;
+  borderTop?: string;
+  borderRight?: string;
+  borderBottom?: string;
+  borderLeft?: string;
+  opacity?: number;
+  zIndex?: number;
+  transform?: string;
+  style?: React.CSSProperties;
+  className?: string;
+  children?: React.ReactNode;
   enableResizeOnTop?: boolean;
   enableResizeOnRight?: boolean;
   enableResizeOnBottom?: boolean;
   enableResizeOnLeft?: boolean;
-  width?: React.CSSProperties["width"];
-  height?: React.CSSProperties["height"];
-  minWidth?: React.CSSProperties["minWidth"];
-  minHeight?: React.CSSProperties["minHeight"];
-  maxWidth?: React.CSSProperties["maxWidth"];
-  maxHeight?: React.CSSProperties["maxHeight"];
-  padding?: React.CSSProperties["padding"];
-  boxShadow?: React.CSSProperties["boxShadow"];
-  background?: React.CSSProperties["background"];
-  backgroundColor?: React.CSSProperties["backgroundColor"];
-  backgroundSize?: React.CSSProperties["backgroundSize"];
-  backgroundImage?: React.CSSProperties["backgroundImage"];
-  backgroundRepeat?: React.CSSProperties["backgroundRepeat"];
-  border?: React.CSSProperties["border"];
-  borderRadius?: React.CSSProperties["borderRadius"];
-  borderTop?: React.CSSProperties["borderTop"];
-  borderRight?: React.CSSProperties["borderRight"];
-  borderBottom?: React.CSSProperties["borderBottom"];
-  borderLeft?: React.CSSProperties["borderLeft"];
-  opacity?: React.CSSProperties["opacity"];
-  zIndex?: React.CSSProperties["zIndex"];
-  transform?: React.CSSProperties["transform"];
-  style?: React.CSSProperties;
-  className?: string;
-  children?: React.ReactNode;
 }
 
 const content: React.CSSProperties = {
@@ -81,6 +81,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     borderBottom,
     borderLeft,
     opacity,
+    transform,
     ...otherProps
   }: BoxProps,
   ref
@@ -126,7 +127,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
         maxHeight,
         boxSizing: "border-box",
         zIndex: "0",
-        transform: "translate3d(0,0,0)",
+        transform: transform == null ? "translate3d(0,0,0)" : transform,
         padding,
         boxShadow,
         background,
