@@ -45,7 +45,7 @@ export const FlexBox = React.forwardRef(function FillBox(
 
     if (element != null) {
       // This is faster than getComputedStyle. And we know how the parents style is set.
-      // Not easily maintainable, but fast ;)
+      // This approach has its cons, but its fast. getComputedStyle causes a style recalc.
       const isRow = element.parentElement?.style.flexDirection === "row";
 
       if (isRow) {

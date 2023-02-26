@@ -37,7 +37,7 @@ export function GridItem({
     left: "0",
     width: `${masonryLayoutEngine.getColumnWidth()}px`,
     transition: animate
-      ? "transform 1000ms cubic-bezier(.07,.77,.31,.92)"
+      ? "transform 1000ms cubic-bezier(.01,.62,.08,1)"
       : undefined,
     transform: `translate(${masonryLayoutEngine.getLeftOffsetForColumn(
       item.column

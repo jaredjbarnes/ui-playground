@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, { HTMLAttributes, useRef } from "react";
 import { useForkRef } from "../../../foundation/react/hooks/use_fork_ref";
 import { BottomResizeHandle } from "./bottom_resize_handle";
 import { LeftResizeHandle } from "./left_resize_handle";
 import { RightResizeHandle } from "./right_resize_handle";
 import { TopResizeHandle } from "./top_resize_handle";
 
-export interface BoxProps {
+export interface BoxProps extends HTMLAttributes<HTMLElement> {
   as?: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
@@ -69,7 +69,19 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     enableResizeOnRight,
     enableResizeOnBottom,
     enableResizeOnLeft,
-    ...otherStyles
+    padding,
+    background,
+    backgroundColor,
+    backgroundSize,
+    backgroundImage,
+    backgroundRepeat,
+    border,
+    borderRadius,
+    borderRight,
+    borderBottom,
+    borderLeft,
+    opacity,
+    ...otherProps
   }: BoxProps,
   ref
 ) {
@@ -103,7 +115,6 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
 
   return (
     <As
-      ref={forkedRef}
       style={{
         overflow,
         position: "relative",
@@ -116,11 +127,24 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
         boxSizing: "border-box",
         zIndex: "0",
         transform: "translate3d(0,0,0)",
+        padding,
         boxShadow,
-        ...otherStyles,
+        background,
+        backgroundColor,
+        backgroundSize,
+        backgroundImage,
+        backgroundRepeat,
+        border,
+        borderRadius,
+        borderRight,
+        borderBottom,
+        borderLeft,
+        opacity,
         ...style,
       }}
       className={className}
+      {...otherProps}
+      ref={forkedRef}
     >
       {children}
       {handles}
