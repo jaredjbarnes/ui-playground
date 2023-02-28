@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useForkRef } from "../../../foundation/react/hooks/use_fork_ref";
-import { useResizeObserver } from "../../../foundation/react/hooks/use_resize_observer";
+import {
+  TriggerConfig,
+  useResizeObserver,
+} from "../../../foundation/react/hooks/use_resize_observer";
+import { delay } from "../../../utils/delay";
 import { MasonryLayoutEngine } from "./masonry_layout_engine";
 
 export interface GridItemProps {
@@ -26,30 +30,40 @@ export function GridItem({
     if (isHeightDifferent) {
       masonryLayoutEngine.setItemHeight(index, height);
     }
-  });
+  }, TriggerConfig.Height);
 
   const forkedRef = useForkRef(ref, child.props.ref);
   const item = masonryLayoutEngine.getItemByIndex(index);
-  const isVisible = item.isVisible;
   const originalStyle = child.props.style || {};
 
   const style: React.CSSProperties = {
     position: "absolute",
-    opacity: item.isVisible ? 1 : 0,
     top: "0",
     left: "0",
     width: `${masonryLayoutEngine.getColumnWidth()}px`,
-    transition: animate
-      ? `transform ${animationDuration}ms cubic-bezier(.01,.62,.08,1)`
-      : undefined,
+
     transform: `translate(${masonryLayoutEngine.getLeftOffsetForColumn(
       item.column
     )}px, ${item.top}px)`,
   };
 
-  if (!isVisible) {
-    style.transition = "";
-  }
+  // This will prevent animation on first load.
+  useEffect(() => {
+    const timeoutPromise = delay(animationDuration);
+
+    timeoutPromise.then(() => {
+      const element = ref.current as HTMLElement;
+      if (element != null) {
+        element.style.transition = animate
+          ? `transform ${animationDuration}ms cubic-bezier(.06,.44,.38,1.01)`
+          : "";
+      }
+    });
+
+    return () => {
+      timeoutPromise.cancel("Unmounted");
+    };
+  }, []);
 
   return React.cloneElement(child, {
     ...child.props,

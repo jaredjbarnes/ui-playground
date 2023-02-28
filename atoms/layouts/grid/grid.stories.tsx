@@ -33,7 +33,7 @@ const Card = React.forwardRef(function Image(
     return Math.floor(200 + Math.random() * 200);
   });
   const [height] = useState(() => {
-    return Math.floor(50 + Math.random() * 500);
+    return Math.floor(100 + Math.random() * 500);
   });
 
   function enter() {

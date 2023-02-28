@@ -4,7 +4,6 @@ interface Item {
   top: number;
   height: number;
   column: number;
-  isVisible: boolean;
 }
 
 export class ItemFactory {
@@ -20,14 +19,12 @@ export class ItemFactory {
         top: 0,
         column: 0,
         height: 0,
-        isVisible: false,
       };
     } else {
       instance = availableInstances.pop() as Item;
       instance.top = 0;
       instance.column = 0;
       instance.height = 0;
-      instance.isVisible = false;
     }
 
     this.usedInstances.push(instance);
@@ -129,7 +126,6 @@ export class MasonryLayoutEngine {
 
       if (hasChanged) {
         item.height = height;
-        item.isVisible = true;
         this.reflow();
       }
     }
@@ -161,22 +157,24 @@ export class MasonryLayoutEngine {
 
   reflow() {
     const items = this._items;
-    const columnsOffset: number[] = [];
-    columnsOffset.length = this._columnLength;
-    columnsOffset.fill(this._gap);
+    const columnsVerticalOffset: number[] = [];
+    columnsVerticalOffset.length = this._columnLength;
+    columnsVerticalOffset.fill(this._gap);
 
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      const shortestColumnIndex = this._findSmallestIndex(columnsOffset);
-      const offset = columnsOffset[shortestColumnIndex];
+      const shortestColumnIndex = this._findSmallestIndex(
+        columnsVerticalOffset
+      );
+      const offset = columnsVerticalOffset[shortestColumnIndex];
 
       item.top = offset;
       item.column = shortestColumnIndex;
 
-      columnsOffset[shortestColumnIndex] += item.height + this._gap;
+      columnsVerticalOffset[shortestColumnIndex] += item.height + this._gap;
     }
 
-    this._height = Math.max(...columnsOffset);
+    this._height = Math.max(...columnsVerticalOffset);
     this._isDirty.setValue(true);
   }
 

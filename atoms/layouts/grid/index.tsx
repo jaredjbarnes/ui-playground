@@ -1,6 +1,9 @@
 import { useAsyncValue } from "ergo-hex";
 import React, { useLayoutEffect, useState } from "react";
-import { useResizeObserver } from "../../../foundation/react/hooks/use_resize_observer";
+import {
+  TriggerConfig,
+  useResizeObserver,
+} from "../../../foundation/react/hooks/use_resize_observer";
 import { GridItem } from "./grid_item";
 import { MasonryLayoutEngine } from "./masonry_layout_engine";
 
@@ -59,7 +62,7 @@ export const Grid = React.forwardRef(function Grid(
 
   const resizeRef = useResizeObserver<HTMLDivElement>((width) => {
     masonryLayoutEngine.setViewportWidth(width);
-  });
+  }, TriggerConfig.Width);
 
   useLayoutEffect(() => {
     masonryLayoutEngine.setMinColumnWidth(columnWidth);
