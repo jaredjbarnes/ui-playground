@@ -39,6 +39,9 @@ export function GridItem({
     top: "0",
     left: "0",
     width: `${masonryLayoutEngine.getColumnWidth()}px`,
+    transition: animate
+      ? `transform ${animationDuration}ms cubic-bezier(.01,.62,.08,1)`
+      : undefined,
     transform: `translate(${masonryLayoutEngine.getLeftOffsetForColumn(
       item.column
     )}px, ${item.top}px)`,
@@ -47,17 +50,6 @@ export function GridItem({
   if (!isVisible) {
     style.transition = "";
   }
-
-  useEffect(() => {
-    const element = ref.current as HTMLElement;
-    if (element != null) {
-      if (isVisible) {
-        element.style.transition = animate
-          ? `transform ${animationDuration}ms cubic-bezier(.01,.62,.08,1)`
-          : "";
-      }
-    }
-  }, [isVisible, animate]);
 
   return React.cloneElement(child, {
     ...child.props,

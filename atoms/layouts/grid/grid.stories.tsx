@@ -33,7 +33,7 @@ const Card = React.forwardRef(function Image(
     return Math.floor(200 + Math.random() * 200);
   });
   const [height] = useState(() => {
-    return Math.floor(200 + Math.random() * 200);
+    return Math.floor(50 + Math.random() * 500);
   });
 
   function enter() {
@@ -66,9 +66,18 @@ const Card = React.forwardRef(function Image(
             height: "100%",
           }}
         />
+        {isHovering && <Box fullHeight fullWidth background="rgba(0,0,0,0.35)" />}
         {isHovering && (
           <VStack>
-            <Box height="50px" fullWidth />
+            <HStack height="50px" horizontalAlignment="start">
+              <Spacer width="15px" />
+              <button style={buttonStyle}>Name</button>
+              <Spacer width="15px" />
+              <button style={buttonStyle}>o</button>
+              <Spacer />
+              <button style={buttonStyle}>o</button>
+              <Spacer width="15px" />
+            </HStack>
             <Spacer />
             <HStack height="50px">
               <Spacer width="15px" />
@@ -89,6 +98,13 @@ const Card = React.forwardRef(function Image(
 export function GridExample() {
   return (
     <Grid columnWidth={200} gap={20} animate>
+      <div>
+        This is a random sized element.
+        This is a random sized element.
+        This is a random sized element.
+        This is a random sized element.
+        This is a random sized element.
+      </div>
       <Card />
       <Card />
       <Card />
@@ -135,4 +151,10 @@ export function GridExample() {
       <Card />
     </Grid>
   );
+}
+
+export function ExtremeSizeDifference(){
+  return <Grid>
+
+  </Grid>
 }
