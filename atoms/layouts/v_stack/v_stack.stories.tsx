@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "../box";
 import { FlexBox } from "../flex_box";
 import { Grid } from "../grid";
@@ -13,40 +13,15 @@ export default {
 
 export const Primary = () => (
   <VStack verticalAlignment="center">
-    <Box
-      background="red"
-      borderRadius="10px"
-      width="100px"
-      height="100px"
-    />
+    <Box background="red" borderRadius="10px" width="100px" height="100px" />
     <Spacer height="10px" />
-    <Box
-      background="orange"
-      borderRadius="10px"
-      width="100px"
-      height="100px"
-    />
+    <Box background="orange" borderRadius="10px" width="100px" height="100px" />
     <Spacer height="10px" />
-    <Box
-      background="yellow"
-      borderRadius="10px"
-      width="100px"
-      height="100px"
-    />
+    <Box background="yellow" borderRadius="10px" width="100px" height="100px" />
     <Spacer height="10px" />
-    <Box
-      background="green"
-      borderRadius="10px"
-      width="100px"
-      height="100px"
-    />
+    <Box background="green" borderRadius="10px" width="100px" height="100px" />
     <Spacer height="10px" />
-    <Box
-      background="blue"
-      borderRadius="10px"
-      width="100px"
-      height="100px"
-    />
+    <Box background="blue" borderRadius="10px" width="100px" height="100px" />
     <Spacer height="10px" />
     <Box
       background="magenta"
@@ -55,12 +30,7 @@ export const Primary = () => (
       height="100px"
     />
     <Spacer height="10px" />
-    <Box
-      background="indigo"
-      borderRadius="10px"
-      width="100px"
-      height="100px"
-    />
+    <Box background="indigo" borderRadius="10px" width="100px" height="100px" />
   </VStack>
 );
 
@@ -112,16 +82,27 @@ export function HeaderBodyFooter() {
 }
 
 export function Example() {
+  const [sizes] = useState(() => [200, 400, 600]);
+  const [currentSizeIndex, setSizeIndex] = useState(0);
+  const size = sizes[currentSizeIndex];
+
+  function toggleSize() {
+    const index = (currentSizeIndex + 1) % sizes.length;
+    setSizeIndex(index);
+  }
+
   return (
     <VStack>
-      <Box height={"30px"} minHeight="30px" fullWidth background={"grey"}></Box>
+      <HStack height="30px">
+        <button onClick={toggleSize}>Toggle Size</button>
+      </HStack>
       <FlexBox>
         <HStack>
           <Box
             background={"white"}
             enableResizeOnRight
             fullHeight
-            width="30%"
+            width={`${size}px`}
             scroll
           >
             webpack built preview 26b37f8164acc71e3394 in 2953ms webpack
@@ -151,7 +132,7 @@ export function Example() {
             building... webpack built preview 4249f20bf181a7af0810 in 2962ms
           </Box>
           <FlexBox background={"grey"}>
-            <Grid columnWidth={200} gap={10}>
+            <Grid columnWidth={200} gap={10} animate>
               <Box
                 background="red"
                 width="100%"

@@ -1,6 +1,6 @@
 import React, { useCallback, useLayoutEffect, useState } from "react";
 import "../../../foundation/css/base.css";
-import { Box } from "../box";
+import { FlexBox } from "../flex_box";
 import { HStack } from "../h_stack";
 import { VStack } from "../v_stack";
 import { TabProps } from "./tab";
@@ -60,14 +60,12 @@ export function Tabs({
         role="tablist"
         horizontalAlignment={tabAlignment}
         verticalAlignment="end"
-        height="auto"
+        height="30px"
         zIndex={2}
       >
         {buttons}
       </HStack>
-      <Box fillSpace fullWidth>
-        {article}
-      </Box>
+      <FlexBox>{article}</FlexBox>
     </VStack>
   );
 }

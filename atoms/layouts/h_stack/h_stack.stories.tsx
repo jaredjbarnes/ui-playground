@@ -7,13 +7,14 @@ export default {
   component: HStack,
 };
 
-export function AsExample() {
+export function ButtonExample() {
   return (
-    <HStack height="40px">
-      <input id="1" type="radio" defaultChecked name="First" style={{marginTop: 0}} />
+    <HStack inline as="button" height="40px" width="auto">
       <Spacer width="8px" />
-      <span>First</span>
-      <Spacer />
+      <span>Span</span>
+      <Spacer width="8px" />
+      <span>Icon</span>
+      <Spacer width="8px" />
     </HStack>
   );
 }

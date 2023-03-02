@@ -55,7 +55,7 @@ export function GridItem({
       const element = ref.current as HTMLElement;
       if (element != null) {
         element.style.transition = animate
-          ? `transform ${animationDuration}ms cubic-bezier(.06,.44,.38,1.01)`
+          ? `transform ${animationDuration}ms, width ${animationDuration}ms cubic-bezier(.06,.44,.38,1.01)`
           : "";
       }
     });
