@@ -104,6 +104,7 @@ export function Example() {
             fullHeight
             width={`${size}px`}
             scroll
+            zIndex={2}
           >
             webpack built preview 26b37f8164acc71e3394 in 2953ms webpack
             building... webpack built preview 26b37f8164acc71e3394 in 1832ms
@@ -131,7 +132,7 @@ export function Example() {
             webpack built preview 0cd9b55ffc1d35c316ce in 1818ms webpack
             building... webpack built preview 4249f20bf181a7af0810 in 2962ms
           </Box>
-          <FlexBox background={"grey"}>
+          <FlexBox background={"grey"} zIndex={1}>
             <Grid columnWidth={200} gap={10} animate>
               <Box
                 background="red"

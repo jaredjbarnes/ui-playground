@@ -65,6 +65,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     background,
     border,
     borderRadius,
+    zIndex = 0,
     opacity,
     transform,
     ...otherProps
@@ -103,7 +104,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
     <As
       ref={forkedRef}
       style={{
-        overflow,
+        overflow: "visible",
         position: "relative",
         minWidth,
         width: finalWidth,
@@ -112,7 +113,7 @@ export const Box = React.forwardRef<HTMLElement, BoxProps>(function Box(
         height: finalHeight,
         maxHeight,
         boxSizing: "border-box",
-        zIndex: "0",
+        zIndex,
         transform: transform == null ? "translate3d(0,0,0)" : transform,
         padding,
         boxShadow,

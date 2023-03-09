@@ -143,6 +143,11 @@ export class MasonryLayoutEngine {
     this._columnLength = Math.floor(
       (this._viewportWidth - this._gap) / (this._minColumnWidth + this._gap)
     );
+    
+    if (this._columnLength > this._items.length) {
+      this._columnLength = this._items.length;
+    }
+
     const allGaps = this._columnLength * this._gap + this._gap;
     this._columnWidth = (this._viewportWidth - allGaps) / this._columnLength;
     this._columnOffsets.length = this._columnLength;
@@ -218,3 +223,6 @@ export class MasonryLayoutEngine {
     this._itemFactory.releaseAll();
   }
 }
+
+
+
